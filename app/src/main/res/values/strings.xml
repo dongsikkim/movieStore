@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">kakaoTest</string>
+    <string name="api_key">5bfa8f8064753fa72108ecc627d1420b</string>
+    <string name="access_token_v4_read_only">eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YmZhOGY4MDY0NzUzZmE3MjEwOGVjYzYyN2QxNDIwYiIsInN1YiI6IjU2OWVkZGYxOTI1MTQxNDliYzAwMDU0OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vIwRDmA9iigkcIBAk98zNFfnB9UJ8vtFjcWBMxXFKWo</string>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.sundaydev.kakaoTest.ui.frament.SplashFragment"
+        android:label="SplashFragment">
+        <action
+            android:id="@+id/action_splashFragment_to_movieFragment"
+            app:destination="@id/movieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvFragment"
+        android:name="com.sundaydev.kakaoTest.ui.frament.TvFragment"
+        android:label="TvFragment">
+        <action
+            android:id="@+id/action_tvFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.sundaydev.kakaoTest.ui.frament.MovieFragment"
+        android:label="MovieFragment">
+        <action
+            android:id="@+id/action_movieFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/peopleFragment"
+        android:name="com.sundaydev.kakaoTest.ui.frament.PeopleFragment"
+        android:label="PeopleFragment">
+        <action
+            android:id="@+id/action_peopleFragment_to_peopleDetailFragment"
+            app:destination="@id/peopleDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myInfoFragment"
+        android:name="com.sundaydev.kakaoTest.ui.frament.MyInfoFragment"
+        android:label="MyInfoFragment" />
+    <fragment
+        android:id="@+id/peopleDetailFragment"
+        android:name="com.sundaydev.kakaoTest.ui.frament.PeopleDetailFragment"
+        android:label="PeopleDetailFragment">
+        <action
+            android:id="@+id/action_peopleDetailFragment_to_detailFragment2"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.sundaydev.kakaoTest.ui.frament.DetailFragment"
+        android:label="DetailFragment">
+        <action
+            android:id="@+id/action_detailFragment_to_peopleDetailFragment"
+            app:destination="@id/peopleDetailFragment" />
+    </fragment>
+</navigation>
