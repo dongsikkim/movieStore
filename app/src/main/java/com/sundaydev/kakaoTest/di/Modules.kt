@@ -2,7 +2,11 @@ package com.sundaydev.kakaoTest.di
 
 import android.net.Uri
 import com.google.gson.GsonBuilder
+import com.sundaydev.kakaoTest.network.MovieClient
+import com.sundaydev.kakaoTest.repository.*
+import com.sundaydev.kakaoTest.viewmodel.*
 import corp.ncsoft.ncapps.nu11.util.UriAdapter
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val utilModule = module {
@@ -10,11 +14,20 @@ val utilModule = module {
 }
 
 val repositoryModule = module {
-
+    single<ContentsRepository> { ContentsRepositoryImpl() }
+    single<PeopleRepository> { PeopleRepositoryImpl() }
+    single<MyInfoRepository> { MyInfoRepositoryImpl() }
+    single { MovieClient() }
 }
 
 val viewModelModule = module {
-
+    viewModel { SplashViewModel() }
+    viewModel { DetailViewModel() }
+    viewModel { MovieViewModel() }
+    viewModel { MyInfoViewModel() }
+    viewModel { PeopleDetailViewModel() }
+    viewModel { PeopleViewModel() }
+    viewModel { TvViewModel() }
 }
 
 val applicationModules = listOf(

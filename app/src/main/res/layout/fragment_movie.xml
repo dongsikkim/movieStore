@@ -3,6 +3,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.sundaydev.kakaoTest.viewmodel.MovieViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

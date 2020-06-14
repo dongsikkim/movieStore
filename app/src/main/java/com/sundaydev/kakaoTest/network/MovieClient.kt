@@ -1,6 +1,6 @@
 package com.sundaydev.kakaoTest.network
 
-const val URL_HOST = "https://api.themoviedb.org/"
+const val URL_HOST = "https://api.themoviedb.org/3/"
 
 class MovieClient : MovieClientBase() {
 
@@ -9,6 +9,6 @@ class MovieClient : MovieClientBase() {
     }
 
     override fun updateEndPoint(host: String) {
-        movieApi = createClient(host).create(NullServices::class.java)
+        movieApi = createClient(host).create(MovieService::class.java)
     }
 }

@@ -8,12 +8,12 @@ data class Peoples(val page: Int, val total_results: Int, val total_pages: Strin
 
 open class MediaItem(
     val poster_path: String? = null,
-    val popularity: Long = 0,
+    val popularity: Float = 0F,
     val original_language: String = "",
     var id: Int = -1,
     val media_type: String = "",
     val backdrop_path: String? = null,
-    val vote_average: Long = 0L,
+    val vote_average: Float = 0F,
     val overview: String = "",
     val genre_ids: List<Int> = mutableListOf(),
     val vote_count: Int = 0
@@ -32,7 +32,7 @@ data class Movie(
 
 data class People<T>(
     val profile_path: String, val adult: Boolean, val id: Int,
-    val known_for: T, val name: String, val popularity: Long
+    val known_for: T, val name: String, val popularity: Float
 )
 
 data class PeopleCredits(
@@ -44,7 +44,7 @@ data class PeopleCast(
     val overview: String, val origin_country: String, val original_name: String,
     val genre_ids: List<Int>, val name: String, val media_type: String,
     val poster_path: String?, val first_air_date: String, val vote_average: Int?,
-    val vote_count: Int, val character: String, val backdrop_path: String?, val popularity: Long,
+    val vote_count: Int, val character: String, val backdrop_path: String?, val popularity: Float,
     val credit_id: String, val original_title: String, val video: Boolean,
     val release_date: Date, val title: String, val adult: Boolean
 )
@@ -61,10 +61,10 @@ data class PeopleCrew(
     val vote_count: Int,
     val name: String,
     val media_type: String,
-    val popularity: Long,
+    val popularity: Float,
     val credit_id: String,
     val backdrop_path: String?,
-    val first_air_date: String, val vote_average: Long, val genre_ids: List<Int>,
+    val first_air_date: String, val vote_average: Float, val genre_ids: List<Int>,
     val poster_path: String?, val original_title: String, val video: Boolean, val title: String,
     val adult: Boolean, val release_date: Date
 )
@@ -79,13 +79,13 @@ data class MovieDetail(
     val production_countries: List<Country>, val release_date: Date,
     val revenue: Int, val runtime: Int?, val spoken_languages: List<SpokenLanguage>,
     val status: String, val tagline: String?, val title: String, val video: Boolean,
-    val vote_average: Long, val vote_count: Int
+    val vote_average: Float, val vote_count: Int
 )
 
 data class PeopleDetail(
     val birthday: String, val known_for_department: String,
     val deathday: String, val id: Int, val name: String, val also_known_as: List<String>,
-    val gender: Int, val biography: String, val popularity: Long, val place_of_birth: String?,
+    val gender: Int, val biography: String, val popularity: Float, val place_of_birth: String?,
     val profile_path: String?, val adult: Boolean, val imdb_id: String,
     val homepage: String?
 )
