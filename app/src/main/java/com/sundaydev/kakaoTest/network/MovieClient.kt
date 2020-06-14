@@ -9,6 +9,6 @@ class MovieClient : MovieClientBase() {
     }
 
     override fun updateEndPoint(host: String) {
-        nullApi = createClient(host).create(NullServices::class.java)
+        movieApi = createClient(host).create(NullServices::class.java)
     }
 }

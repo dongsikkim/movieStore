@@ -14,13 +14,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
+const val PARAM_API_KEY = "api_key"
+const val PARAM_LANGUAGE = "language"
+
 open class MovieClientBase : KoinComponent {
     private val gSon: Gson by inject()
-    lateinit var nullApi: NullServices
+    lateinit var movieApi: NullServices
 
     open fun updateEndPoint(host: String) {
         val retrofit = createClient(host)
-        nullApi = retrofit.create(NullServices::class.java)
+        movieApi = retrofit.create(NullServices::class.java)
     }
 
     protected fun createClient(host: String): Retrofit {
@@ -28,6 +31,7 @@ open class MovieClientBase : KoinComponent {
             OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
                 .addInterceptor(TrafficStatInterceptor(Math.random().toInt()))
+                .addInterceptor(CommonParam())
                 .connectTimeout(DEFAULT_TIMEOUT_SECOND, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT_SECOND, TimeUnit.SECONDS)
                 .readTimeout(DEFAULT_TIMEOUT_SECOND, TimeUnit.SECONDS).build()
