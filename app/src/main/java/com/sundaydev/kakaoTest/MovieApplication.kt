@@ -29,6 +29,6 @@ class MovieApplication : Application(), KoinComponent {
     }
 }
 
-const val PREF_NAME = "null.pref"
+const val PREF_NAME = "movie.pref"
 
 enum class Key { DARK_MODE }
