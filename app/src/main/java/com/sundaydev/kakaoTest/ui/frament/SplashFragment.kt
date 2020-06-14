@@ -19,8 +19,6 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Handler().postDelayed({
-            findNavController().navigate(R.id.movieFragment)
-        }, 1000)
+        Handler().postDelayed({ findNavController().navigate(R.id.action_splashFragment_to_movieFragment) }, 1000)
     }
 }

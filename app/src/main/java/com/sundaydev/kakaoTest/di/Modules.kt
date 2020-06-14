@@ -28,6 +28,7 @@ val viewModelModule = module {
     viewModel { PeopleDetailViewModel() }
     viewModel { PeopleViewModel() }
     viewModel { TvViewModel() }
+    viewModel { (filterName: String) -> ContentsViewModel(filterName) }
 }
 
 val applicationModules = listOf(

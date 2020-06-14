@@ -2,10 +2,14 @@ package com.sundaydev.kakaoTest.util
 
 import android.graphics.drawable.Drawable
 import android.view.View
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.sundaydev.kakaoTest.data.Movie
+import com.sundaydev.kakaoTest.network.URL_IMAGE
 import java.text.NumberFormat
 
 @BindingAdapter("visibleGone")
@@ -14,6 +18,11 @@ fun setVisibleGone(view: View, boolean: Boolean) {
         true -> View.VISIBLE
         else -> View.GONE
     }
+}
+
+@BindingAdapter("loadPoster")
+fun setLoadPoster(view : AppCompatImageView, data : Movie) {
+    Glide.with(view.context).load(URL_IMAGE+data.poster_path).into(view)
 }
 
 @BindingAdapter("number")

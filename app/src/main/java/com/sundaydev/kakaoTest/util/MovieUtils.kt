@@ -9,7 +9,10 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 import com.sundaydev.kakaoTest.R
+open class BindingViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
 
 open class LottieAnimListener : Animator.AnimatorListener {
     override fun onAnimationRepeat(animation: Animator?) {}

@@ -17,7 +17,9 @@ open class MediaItem(
     val overview: String = "",
     val genre_ids: List<Int> = mutableListOf(),
     val vote_count: Int = 0
-)
+) {
+    fun displayPopularity() = (popularity * 10).toInt()
+}
 
 data class Tv(
     val first_air_date: String, val origin_country: List<String>,
