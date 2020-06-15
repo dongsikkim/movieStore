@@ -12,45 +12,45 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.sundaydev.kakaoTest.BR
 import com.sundaydev.kakaoTest.R
-import com.sundaydev.kakaoTest.data.Movie
-import com.sundaydev.kakaoTest.databinding.FragmentContentsBinding
+import com.sundaydev.kakaoTest.data.Tv
+import com.sundaydev.kakaoTest.databinding.FragmentTvContentsBinding
 import com.sundaydev.kakaoTest.util.BindingViewHolder
-import com.sundaydev.kakaoTest.viewmodel.ContentsViewModel
+import com.sundaydev.kakaoTest.viewmodel.TvContentsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-fun createContentsFragment(tabInfo: TabInfo) = ContentsFragment().apply {
-    arguments = bundleOf("tab" to tabInfo)
+fun createTvContentsFragment(tvInfo: TvTabInfo) = TvContentsFragment().apply {
+    arguments = bundleOf(FILTER_NAME to tvInfo)
 }
 
-class ContentsFragment : Fragment() {
-    private val viewModel: ContentsViewModel by viewModel { parametersOf(filterName) }
-    private val adapter: ContentsAdapter by lazy { ContentsAdapter() }
+class TvContentsFragment : Fragment() {
+    private val viewModelMovie: TvContentsViewModel by viewModel { parametersOf(filterName) }
+    private val adapter: TvContentsAdapter by lazy { TvContentsAdapter() }
     lateinit var filterName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val tab = arguments?.getSerializable("tab") as TabInfo
+        val tab = arguments?.getSerializable(FILTER_NAME) as TvTabInfo
         filterName = tab.name
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: FragmentContentsBinding = FragmentContentsBinding.inflate(inflater)
+        val binding: FragmentTvContentsBinding = FragmentTvContentsBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
+        binding.viewModel = viewModelMovie
         binding.contentsRecycler.adapter = adapter
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.list.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+        viewModelMovie.list.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
     }
 }
 
-class ContentsAdapter : ListAdapter<Movie, BindingViewHolder>(diffMovieUtil) {
+class TvContentsAdapter : ListAdapter<Tv, BindingViewHolder>(diffTvUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder =
-        BindingViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_contents, parent, false))
+        BindingViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_tv_contents, parent, false))
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         holder.binding.setVariable(BR.item, getItem(position))
@@ -58,7 +58,7 @@ class ContentsAdapter : ListAdapter<Movie, BindingViewHolder>(diffMovieUtil) {
     }
 }
 
-val diffMovieUtil = object : DiffUtil.ItemCallback<Movie>() {
-    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean = oldItem == newItem
+val diffTvUtil = object : DiffUtil.ItemCallback<Tv>() {
+    override fun areItemsTheSame(oldItem: Tv, newItem: Tv): Boolean = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: Tv, newItem: Tv): Boolean = oldItem == newItem
 }

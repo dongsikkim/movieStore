@@ -15,16 +15,11 @@ import com.sundaydev.kakaoTest.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-enum class TabInfo(@IdRes val resourceId: Int) {
+enum class MovieTabInfo(@IdRes val resourceId: Int) {
     MOVIE_POPULAR(R.string.popular),
     MOVIE_NOW_PLAYING(R.string.now_playing),
     MOVIE_UPCOMING(R.string.upcoming),
     MOVIE_TOP_RATE(R.string.top_rate),
-
-    TV_POPULAR(R.string.popular),
-    TV_NOW_PLAYING(R.string.now_playing),
-    TV_UPCOMING(R.string.upcoming),
-    TV_TOP_RATE(R.string.top_rate)
 }
 
 class MovieFragment : Fragment() {
@@ -42,13 +37,12 @@ class MovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         move_view_pager.adapter = viewPagerAdapter
         TabLayoutMediator(tab_layout, move_view_pager) { tab, position ->
-            tab.text = getString(TabInfo.values()[position].resourceId)
+            tab.text = getString(MovieTabInfo.values()[position].resourceId)
         }.attach()
     }
 }
 
 class MovieViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = 4
-
-    override fun createFragment(position: Int): Fragment = createContentsFragment(TabInfo.values()[position])
+    override fun createFragment(position: Int): Fragment = createMovieContentsFragment(MovieTabInfo.values()[position])
 }

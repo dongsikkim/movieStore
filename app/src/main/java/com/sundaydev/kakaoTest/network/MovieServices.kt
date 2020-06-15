@@ -38,7 +38,7 @@ interface MovieService {
     fun getTvDetail(@Path("tv_id") tv_id: Int): Single<MovieDetail>
 
     @GET("person/popular")
-    fun getPeoples(page: Int = 1): Single<Peoples>
+    fun getPeoples(@Query("page") page: Int = 1): Single<Peoples>
 
     @GET("person/{person_id}")
     fun getPeopleDetail(@Path("person_id") person_id: Int): Single<PeopleDetail>

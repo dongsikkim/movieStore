@@ -4,7 +4,7 @@ import java.util.*
 
 data class Tvs(val page: Int, val total_results: Int, val total_pages: Int, val results: List<Tv>)
 data class Movies(val page: Int, val total_results: Int, val total_pages: Int, val results: List<Movie>)
-data class Peoples(val page: Int, val total_results: Int, val total_pages: String, val results: List<Any>)
+data class Peoples(val page: Int, val total_results: Int, val total_pages: String, val results: List<People>)
 
 open class MediaItem(
     val poster_path: String? = null,
@@ -32,9 +32,9 @@ data class Movie(
     val video: Boolean = false
 ) : MediaItem()
 
-data class People<T>(
+data class People(
     val profile_path: String, val adult: Boolean, val id: Int,
-    val known_for: T, val name: String, val popularity: Float
+    /*val known_for: List<String>, */val name: String, val popularity: Float
 )
 
 data class PeopleCredits(

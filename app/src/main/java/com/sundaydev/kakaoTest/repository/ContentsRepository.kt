@@ -28,7 +28,7 @@ class ContentsRepositoryImpl : ContentsRepository, KoinComponent {
     private val apiClient : MovieClient by inject()
     override fun getPopularTv(page: Int): Single<Tvs> = apiClient.movieApi.getPopularTv(page).workOnSchedulerIo()
 
-    override fun getNowPlayingTv(page: Int): Single<Tvs> = apiClient.movieApi.getNowPlayingTv(page)
+    override fun getNowPlayingTv(page: Int): Single<Tvs> = apiClient.movieApi.getNowPlayingTv(page).workOnSchedulerIo()
 
     override fun getTodayTv(page: Int): Single<Tvs> = apiClient.movieApi.getTodayTv(page).workOnSchedulerIo()
 

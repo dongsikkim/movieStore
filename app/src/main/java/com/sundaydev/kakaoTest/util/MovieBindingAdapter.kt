@@ -28,6 +28,11 @@ fun setLoadPoster(view: AppCompatImageView, data: Movie) {
     Glide.with(view.context).load(URL_IMAGE + data.poster_path).into(view)
 }
 
+@BindingAdapter("loadProfile")
+fun setLoadProfile(view: AppCompatImageView, url: String) {
+    Glide.with(view.context).load(URL_IMAGE + url).into(view)
+}
+
 @BindingAdapter("percentage")
 fun setPercentage(view: AppCompatTextView, percentage: Int) {
     val spannableString = SpannableStringBuilder("$percentage%")

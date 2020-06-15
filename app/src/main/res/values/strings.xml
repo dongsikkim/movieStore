@@ -4,6 +4,12 @@
     <string name="access_token_v4_read_only">eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YmZhOGY4MDY0NzUzZmE3MjEwOGVjYzYyN2QxNDIwYiIsInN1YiI6IjU2OWVkZGYxOTI1MTQxNDliYzAwMDU0OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vIwRDmA9iigkcIBAk98zNFfnB9UJ8vtFjcWBMxXFKWo</string>
     <string name="popular">인기</string>
     <string name="now_playing">상영중</string>
+    <string name="tv_now_playing">지금방영중</string>
     <string name="upcoming">개봉예정</string>
+    <string name="today_playing">오늘방영</string>
     <string name="top_rate">높은평점</string>
+    <string name="tv">TV프로그램</string>
+    <string name="movie">영화</string>
+    <string name="people">인물</string>
+    <string name="my_page">마이페이지</string>
 </resources>
