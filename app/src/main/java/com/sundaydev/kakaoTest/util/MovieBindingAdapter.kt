@@ -1,6 +1,9 @@
 package com.sundaydev.kakaoTest.util
 
 import android.graphics.drawable.Drawable
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.RelativeSizeSpan
 import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
@@ -21,8 +24,15 @@ fun setVisibleGone(view: View, boolean: Boolean) {
 }
 
 @BindingAdapter("loadPoster")
-fun setLoadPoster(view : AppCompatImageView, data : Movie) {
-    Glide.with(view.context).load(URL_IMAGE+data.poster_path).into(view)
+fun setLoadPoster(view: AppCompatImageView, data: Movie) {
+    Glide.with(view.context).load(URL_IMAGE + data.poster_path).into(view)
+}
+
+@BindingAdapter("percentage")
+fun setPercentage(view: AppCompatTextView, percentage: Int) {
+    val spannableString = SpannableStringBuilder("$percentage%")
+    spannableString.setSpan(RelativeSizeSpan(1.2f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    view.text = spannableString
 }
 
 @BindingAdapter("number")
