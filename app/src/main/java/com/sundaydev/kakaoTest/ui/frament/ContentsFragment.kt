@@ -19,14 +19,14 @@ import com.sundaydev.kakaoTest.viewmodel.ContentsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-fun createContentsFragment(tabInfo : TabInfo) = ContentsFragment().apply {
+fun createContentsFragment(tabInfo: TabInfo) = ContentsFragment().apply {
     arguments = bundleOf("tab" to tabInfo)
 }
 
 class ContentsFragment : Fragment() {
-    private val viewModel: ContentsViewModel by viewModel { parametersOf(filterName)}
-    private val adapter: MovieAdapter by lazy { MovieAdapter() }
-    lateinit var filterName : String
+    private val viewModel: ContentsViewModel by viewModel { parametersOf(filterName) }
+    private val adapter: ContentsAdapter by lazy { ContentsAdapter() }
+    lateinit var filterName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +48,7 @@ class ContentsFragment : Fragment() {
     }
 }
 
-class MovieAdapter : ListAdapter<Movie, BindingViewHolder>(diffMovieUtil) {
+class ContentsAdapter : ListAdapter<Movie, BindingViewHolder>(diffMovieUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder =
         BindingViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_contents, parent, false))
 

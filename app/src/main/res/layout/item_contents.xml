@@ -60,7 +60,10 @@
                 android:layout_height="48dp"
                 android:indeterminate="false"
                 android:max="100"
-                android:progress="@{item.displayPopularity}"
+                android:rotation="270"
+                style="?android:progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/progress_circle"
+                android:progress="@{item.displayVote()}"
                 app:layout_constraintBottom_toBottomOf="@id/bottom_space"
                 app:layout_constraintStart_toEndOf="@id/guide_start"
                 app:layout_constraintTop_toTopOf="@id/bottom_space" />

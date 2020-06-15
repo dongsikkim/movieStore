@@ -18,7 +18,7 @@ open class MediaItem(
     val genre_ids: List<Int> = mutableListOf(),
     val vote_count: Int = 0
 ) {
-    fun displayPopularity() = (popularity * 10).toInt()
+    fun displayVote() = (vote_average * 10).toInt()
 }
 
 data class Tv(
