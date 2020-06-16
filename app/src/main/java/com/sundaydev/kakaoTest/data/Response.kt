@@ -76,13 +76,15 @@ data class MovieDetail(
     val budget: Int, val genres: List<Genres>,
     val homepage: String?, val id: Int, val imdb_id: String?,
     val original_language: String, val original_title: String,
-    val overview: String?, val popularity: Int,
+    val overview: String?, val popularity: Float,
     val poster_path: String?, val production_companies: List<Company>,
-    val production_countries: List<Country>, val release_date: Date,
+    val production_countries: List<Country>, val release_date: String,
     val revenue: Int, val runtime: Int?, val spoken_languages: List<SpokenLanguage>,
     val status: String, val tagline: String?, val title: String, val video: Boolean,
     val vote_average: Float, val vote_count: Int
-)
+) {
+    fun displayVote() = (vote_average * 10).toInt()
+}
 
 data class PeopleDetail(
     val birthday: String, val known_for_department: String,

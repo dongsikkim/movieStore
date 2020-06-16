@@ -4,8 +4,8 @@ import android.net.Uri
 import com.google.gson.GsonBuilder
 import com.sundaydev.kakaoTest.network.MovieClient
 import com.sundaydev.kakaoTest.repository.*
+import com.sundaydev.kakaoTest.util.UriAdapter
 import com.sundaydev.kakaoTest.viewmodel.*
-import corp.ncsoft.ncapps.nu11.util.UriAdapter
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -22,7 +22,6 @@ val repositoryModule = module {
 
 val viewModelModule = module {
     viewModel { SplashViewModel() }
-    viewModel { DetailViewModel() }
     viewModel { MovieViewModel() }
     viewModel { MyInfoViewModel() }
     viewModel { PeopleDetailViewModel() }
@@ -30,6 +29,7 @@ val viewModelModule = module {
     viewModel { TvViewModel() }
     viewModel { (filterName: String) -> MovieContentsViewModel(filterName) }
     viewModel { (filterName: String) -> TvContentsViewModel(filterName) }
+    viewModel { (movieId: Int) -> DetailViewModel(movieId) }
 }
 
 val applicationModules = listOf(

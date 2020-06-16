@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.sundaydev.kakaoTest.BR
@@ -27,7 +28,7 @@ fun createMovieContentsFragment(movieTabInfo: MovieTabInfo) = MovieContentsFragm
 
 class MovieContentsFragment : Fragment() {
     private val viewModelMovie: MovieContentsViewModel by viewModel { parametersOf(filterName) }
-    private val adapterMovie: MovieContentsAdapter by lazy { MovieContentsAdapter() }
+    private val adapterMovie: MovieContentsAdapter by lazy { MovieContentsAdapter(onClicks) }
     lateinit var filterName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,15 +49,20 @@ class MovieContentsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModelMovie.list.observe(viewLifecycleOwner, Observer { adapterMovie.submitList(it) })
     }
+
+    private val onClicks: ((Movie) -> Unit)? = {
+        findNavController().navigate(R.id.detailFragment, bundleOf(KEY_MOVIE_ID to it.id))
+    }
 }
 
-class MovieContentsAdapter : ListAdapter<Movie, BindingViewHolder>(diffMovieUtil) {
+class MovieContentsAdapter(private val onClicks: ((Movie) -> Unit)? = null) : ListAdapter<Movie, BindingViewHolder>(diffMovieUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder =
         BindingViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_movie_contents, parent, false))
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         holder.binding.setVariable(BR.item, getItem(position))
         holder.binding.executePendingBindings()
+        holder.binding.root.setOnClickListener { onClicks?.invoke(getItem(position)) }
     }
 }
 

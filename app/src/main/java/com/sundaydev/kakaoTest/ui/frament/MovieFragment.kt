@@ -23,7 +23,7 @@ enum class MovieTabInfo(@IdRes val resourceId: Int) {
 }
 
 class MovieFragment : Fragment() {
-    private val viewPagerAdapter: MovieViewPagerAdapter by lazy { MovieViewPagerAdapter(this) }
+    lateinit var viewPagerAdapter: MovieViewPagerAdapter
     private val viewModel: MovieViewModel by viewModel()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding: FragmentMovieBinding = FragmentMovieBinding.inflate(inflater)
@@ -35,6 +35,7 @@ class MovieFragment : Fragment() {
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewPagerAdapter = MovieViewPagerAdapter(this@MovieFragment)
         move_view_pager.adapter = viewPagerAdapter
         TabLayoutMediator(tab_layout, move_view_pager) { tab, position ->
             tab.text = getString(MovieTabInfo.values()[position].resourceId)

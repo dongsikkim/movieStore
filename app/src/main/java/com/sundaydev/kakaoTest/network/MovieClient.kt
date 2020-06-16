@@ -1,7 +1,7 @@
 package com.sundaydev.kakaoTest.network
 
 const val URL_HOST = "https://api.themoviedb.org/3/"
-const val URL_IMAGE = "https://image.tmdb.org/t/p/original/"
+const val URL_IMAGE = "https://image.tmdb.org/t/p/w185/"
 class MovieClient : MovieClientBase() {
 
     init {

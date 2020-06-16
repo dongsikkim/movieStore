@@ -17,7 +17,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:foreground="@drawable/selector_common">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guide_start"
@@ -54,33 +55,15 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/poster" />
 
-            <ProgressBar
-                android:id="@+id/rate"
-                style="?android:progressBarStyleHorizontal"
+            <include
+                android:id="@+id/rate_layout"
+                layout="@layout/widget_progress"
+                rate="@{item.displayVote()}"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@drawable/background_progress"
-                android:indeterminate="false"
-                android:max="100"
-                android:progress="@{item.displayVote()}"
-                android:progressDrawable="@drawable/progress_circle"
-                android:rotation="270"
                 app:layout_constraintBottom_toBottomOf="@id/bottom_space"
                 app:layout_constraintStart_toEndOf="@id/guide_start"
                 app:layout_constraintTop_toTopOf="@id/bottom_space" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/vote_rate"
-                style="@style/Overline"
-                percentage="@{item.displayVote()}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/rate"
-                app:layout_constraintEnd_toEndOf="@id/rate"
-                app:layout_constraintStart_toStartOf="@id/rate"
-                app:layout_constraintTop_toTopOf="@id/rate" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title"
@@ -93,7 +76,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/guide_end"
                 app:layout_constraintStart_toEndOf="@id/guide_start"
-                app:layout_constraintTop_toBottomOf="@id/rate" />
+                app:layout_constraintTop_toBottomOf="@id/rate_layout" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/date"

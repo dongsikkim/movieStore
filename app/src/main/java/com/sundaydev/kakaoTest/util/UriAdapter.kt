@@ -1,4 +1,4 @@
-package corp.ncsoft.ncapps.nu11.util
+package com.sundaydev.kakaoTest.util
 
 import android.net.Uri
 import com.google.gson.*

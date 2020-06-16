@@ -11,6 +11,8 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.sundaydev.kakaoTest.R
+import com.sundaydev.kakaoTest.data.Genres
 import com.sundaydev.kakaoTest.data.Movie
 import com.sundaydev.kakaoTest.network.URL_IMAGE
 import java.text.NumberFormat
@@ -29,8 +31,8 @@ fun setLoadPoster(view: AppCompatImageView, data: Movie) {
 }
 
 @BindingAdapter("loadProfile")
-fun setLoadProfile(view: AppCompatImageView, url: String) {
-    Glide.with(view.context).load(URL_IMAGE + url).into(view)
+fun setLoadProfile(view: AppCompatImageView, url: String?) {
+    url?.let { Glide.with(view.context).load(URL_IMAGE + it).error(R.drawable.ic_logo).into(view) }
 }
 
 @BindingAdapter("percentage")
@@ -38,6 +40,24 @@ fun setPercentage(view: AppCompatTextView, percentage: Int) {
     val spannableString = SpannableStringBuilder("$percentage%")
     spannableString.setSpan(RelativeSizeSpan(1.2f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     view.text = spannableString
+}
+
+
+@BindingAdapter("genres")
+fun setGenres(view: AppCompatTextView, genreArray: List<Genres>?) {
+    if (!genreArray.isNullOrEmpty()) {
+        view.text = genreArray.joinToString { genres -> genres.name }
+    }
+}
+
+@BindingAdapter("runtime")
+fun setRuntime(view: AppCompatTextView, minute: Int) {
+    val builder = StringBuilder()
+    if (minute / 60 > 0) {
+        builder.append(minute / 60).append("h ")
+    }
+    builder.append(minute % 60).append("m")
+    view.text = builder.toString()
 }
 
 @BindingAdapter("number")
