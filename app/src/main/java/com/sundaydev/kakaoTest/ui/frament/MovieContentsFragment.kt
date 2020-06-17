@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import com.sundaydev.kakaoTest.BR
 import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.data.Movie
@@ -55,14 +55,14 @@ class MovieContentsFragment : Fragment() {
     }
 }
 
-class MovieContentsAdapter(private val onClicks: ((Movie) -> Unit)? = null) : ListAdapter<Movie, BindingViewHolder>(diffMovieUtil) {
+class MovieContentsAdapter(private val onClicks: ((Movie) -> Unit)? = null) : PagedListAdapter<Movie, BindingViewHolder>(diffMovieUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder =
         BindingViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_movie_contents, parent, false))
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         holder.binding.setVariable(BR.item, getItem(position))
         holder.binding.executePendingBindings()
-        holder.binding.root.setOnClickListener { onClicks?.invoke(getItem(position)) }
+        holder.binding.root.setOnClickListener { getItem(position)?.let { onClicks?.invoke(it) } }
     }
 }
 

@@ -42,7 +42,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/poster"
-                loadProfile="@{item.profile_path}"
+                loadImage="@{item.profile_path}"
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
                 android:scaleType="fitXY"

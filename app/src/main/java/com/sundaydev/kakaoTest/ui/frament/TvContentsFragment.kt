@@ -8,8 +8,8 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import com.sundaydev.kakaoTest.BR
 import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.data.Tv
@@ -48,7 +48,7 @@ class TvContentsFragment : Fragment() {
     }
 }
 
-class TvContentsAdapter : ListAdapter<Tv, BindingViewHolder>(diffTvUtil) {
+class TvContentsAdapter : PagedListAdapter<Tv, BindingViewHolder>(diffTvUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder =
         BindingViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_tv_contents, parent, false))
 

@@ -12,4 +12,5 @@
     <string name="movie">영화</string>
     <string name="people">인물</string>
     <string name="my_page">마이페이지</string>
+    <string name="note_rate">NR</string>
 </resources>

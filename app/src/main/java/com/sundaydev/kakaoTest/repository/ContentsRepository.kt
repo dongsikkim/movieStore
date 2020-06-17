@@ -1,11 +1,16 @@
 package com.sundaydev.kakaoTest.repository
 
-import com.sundaydev.kakaoTest.data.MovieDetail
-import com.sundaydev.kakaoTest.data.Movies
-import com.sundaydev.kakaoTest.data.Tvs
+import androidx.lifecycle.LiveData
+import androidx.paging.Config
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.sundaydev.kakaoTest.data.*
+import com.sundaydev.kakaoTest.datasource.MovieDataSourceFactory
+import com.sundaydev.kakaoTest.datasource.TvDataSourceFactory
 import com.sundaydev.kakaoTest.network.MovieClient
 import com.sundaydev.kakaoTest.util.workOnSchedulerIo
 import io.reactivex.Single
+import io.reactivex.disposables.CompositeDisposable
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -22,10 +27,13 @@ interface ContentsRepository {
 
     fun getMovieDetail(id: Int): Single<MovieDetail>
     fun getTvDetail(id: Int): Single<MovieDetail>
+
+    fun loadTvs(filterName: String, disposable: CompositeDisposable): LiveData<PagedList<Tv>>
+    fun loadMovies(filterName: String, disposable: CompositeDisposable): LiveData<PagedList<Movie>>
 }
 
 class ContentsRepositoryImpl : ContentsRepository, KoinComponent {
-    private val apiClient : MovieClient by inject()
+    private val apiClient: MovieClient by inject()
     override fun getPopularTv(page: Int): Single<Tvs> = apiClient.movieApi.getPopularTv(page).workOnSchedulerIo()
 
     override fun getNowPlayingTv(page: Int): Single<Tvs> = apiClient.movieApi.getNowPlayingTv(page).workOnSchedulerIo()
@@ -45,4 +53,13 @@ class ContentsRepositoryImpl : ContentsRepository, KoinComponent {
     override fun getMovieDetail(id: Int): Single<MovieDetail> = apiClient.movieApi.getMovieDetail(id).workOnSchedulerIo()
 
     override fun getTvDetail(id: Int): Single<MovieDetail> = apiClient.movieApi.getTvDetail(id).workOnSchedulerIo()
+    override fun loadTvs(filterName: String, disposable: CompositeDisposable): LiveData<PagedList<Tv>> {
+        val dataSourceFactory = TvDataSourceFactory(apiClient.movieApi, filterName, disposable)
+        return LivePagedListBuilder(dataSourceFactory, Config(pageSize = 10)).build()
+    }
+
+    override fun loadMovies(filterName: String, disposable: CompositeDisposable): LiveData<PagedList<Movie>> {
+        val dataSourceFactory = MovieDataSourceFactory(apiClient.movieApi, filterName, disposable)
+        return LivePagedListBuilder(dataSourceFactory, Config(pageSize = 10)).build()
+    }
 }

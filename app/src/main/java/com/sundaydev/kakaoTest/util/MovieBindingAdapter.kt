@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.data.Genres
-import com.sundaydev.kakaoTest.data.Movie
 import com.sundaydev.kakaoTest.network.URL_IMAGE
 import java.text.NumberFormat
 
@@ -25,21 +24,20 @@ fun setVisibleGone(view: View, boolean: Boolean) {
     }
 }
 
-@BindingAdapter("loadPoster")
-fun setLoadPoster(view: AppCompatImageView, data: Movie) {
-    Glide.with(view.context).load(URL_IMAGE + data.poster_path).into(view)
-}
-
-@BindingAdapter("loadProfile")
-fun setLoadProfile(view: AppCompatImageView, url: String?) {
+@BindingAdapter("loadImage")
+fun setImage(view: AppCompatImageView, url: String?) {
     url?.let { Glide.with(view.context).load(URL_IMAGE + it).error(R.drawable.ic_logo).into(view) }
 }
 
 @BindingAdapter("percentage")
 fun setPercentage(view: AppCompatTextView, percentage: Int) {
-    val spannableString = SpannableStringBuilder("$percentage%")
-    spannableString.setSpan(RelativeSizeSpan(1.2f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-    view.text = spannableString
+    view.text = when (percentage) {
+        in 1..100 -> {
+            val spannableString = SpannableStringBuilder("$percentage%")
+            spannableString.apply { setSpan(RelativeSizeSpan(1.2f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
+        }
+        else -> view.context.getString(R.string.note_rate)
+    }
 }
 
 

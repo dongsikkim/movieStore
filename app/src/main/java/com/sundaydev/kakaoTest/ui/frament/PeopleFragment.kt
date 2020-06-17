@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import com.sundaydev.kakaoTest.BR
 import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.data.People
@@ -34,7 +34,7 @@ class PeopleFragment : Fragment() {
     }
 }
 
-class PeopleAdapter : ListAdapter<People, BindingViewHolder>(diffPeopleUtil) {
+class PeopleAdapter : PagedListAdapter<People, BindingViewHolder>(diffPeopleUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder =
         BindingViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_people, parent, false))
 
