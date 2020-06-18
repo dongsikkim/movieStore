@@ -1,33 +1,13 @@
 package com.sundaydev.kakaoTest.util
 
-import android.animation.Animator
-import android.content.Context
-import android.content.res.Resources
 import android.os.Build
-import android.util.TypedValue
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.sundaydev.kakaoTest.R
+
 open class BindingViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
-
-open class LottieAnimListener : Animator.AnimatorListener {
-    override fun onAnimationRepeat(animation: Animator?) {}
-
-    override fun onAnimationEnd(animation: Animator?) {}
-
-    override fun onAnimationCancel(animation: Animator?) {}
-
-    override fun onAnimationStart(animation: Animator?) {}
-}
-
-fun dpToPx(dipValue: Float): Float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, Resources.getSystem().displayMetrics)
-
-fun View.hideKeyboard() =
-    (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(windowToken, 0)
 
 enum class DayNight(@IdRes val ids: Int) { LIGHT(R.id.light_mode), DARK(R.id.dark_mode), DEFAULT(R.id.system_mode) }
 

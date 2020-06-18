@@ -54,7 +54,7 @@ class MovieDataSourceFactory(
 ) :
     DataSource.Factory<Int, Movie>() {
     val error = MutableLiveData<Boolean>()
-    lateinit var dataSource: MovieDataSource
+    private lateinit var dataSource: MovieDataSource
     override fun create(): DataSource<Int, Movie> = MovieDataSource(apiService, filterName, error, disposable).also { dataSource = it }
     fun refresh() = dataSource.refresh()
 }

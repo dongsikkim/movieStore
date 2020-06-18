@@ -32,16 +32,12 @@ class TvDataSource(private val apiService: MovieService, private val filterName:
         }.subscribeByCommon(onSuccess = { item -> callback.onResult(item.results, params.key + 1) }).addTo(disposable)
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Tv>) {
-        TODO("Not yet implemented")
-    }
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Tv>) {}
 
-    fun refresh() {
-        invalidate()
-    }
+    fun refresh() = invalidate()
 }
 
-class TvDataSourceFactory(val apiService: MovieService, val filterName: String, val disposable: CompositeDisposable) :
+class TvDataSourceFactory(private val apiService: MovieService, private val filterName: String, val disposable: CompositeDisposable) :
     DataSource.Factory<Int, Tv>() {
     lateinit var dataSource: TvDataSource
     override fun create(): DataSource<Int, Tv> = TvDataSource(apiService, filterName, disposable).also { dataSource = it }

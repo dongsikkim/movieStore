@@ -31,6 +31,6 @@ class PeopleRepositoryImpl : PeopleRepository, KoinComponent {
 
     override fun loadPeoples(disposable: CompositeDisposable): LiveData<PagedList<People>> {
         val factory = PeopleDataSourceFactory(apiClient.movieApi, disposable)
-        return LivePagedListBuilder(factory, Config(10)).build()
+        return LivePagedListBuilder(factory, Config(CONTENTS_PAGE_SIZE)).build()
     }
 }

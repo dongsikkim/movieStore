@@ -14,43 +14,10 @@ private val onCompleteStub: () -> Unit = {}
 
 @CheckReturnValue
 @SchedulerSupport(SchedulerSupport.NONE)
-fun <T : Any> Maybe<T>.workOnSchedulerIo(): Maybe<T> =
-    subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-
-@CheckReturnValue
-@SchedulerSupport(SchedulerSupport.NONE)
-fun <T : Any> Flowable<T>.workOnSchedulerIo(): Flowable<T> =
-    subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-
-@CheckReturnValue
-@SchedulerSupport(SchedulerSupport.NONE)
-fun Completable.workOnSchedulerIo(): Completable =
-    subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-
-@CheckReturnValue
-@SchedulerSupport(SchedulerSupport.NONE)
 fun <T : Any> Single<T>.workOnSchedulerIo(): Single<T> =
-    subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-
-@CheckReturnValue
-@SchedulerSupport(SchedulerSupport.NONE)
-fun <T : Any> Observable<T>.workOnSchedulerIo(): Observable<T> =
     subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
 @CheckReturnValue
 @SchedulerSupport(SchedulerSupport.NONE)
 fun <T : Any> Single<T>.subscribeByCommon(onError: (Throwable) -> Unit = onErrorStub, onSuccess: (T) -> Unit = onNextStub) =
     rxKotlinSubscribeBy(onError, onSuccess)
-
-@CheckReturnValue
-@SchedulerSupport(SchedulerSupport.NONE)
-fun Completable.subscribeByCommon(onError: (Throwable) -> Unit = onErrorStub, onComplete: () -> Unit = onCompleteStub) =
-    rxKotlinSubscribeBy(onError, onComplete)
-
-@CheckReturnValue
-@SchedulerSupport(SchedulerSupport.NONE)
-fun <T : Any> Observable<T>.subscribeByCommon(
-    onNext: (T) -> Unit = onNextStub,
-    onComplete: () -> Unit = onCompleteStub,
-    onError: (Throwable) -> Unit = onErrorStub
-) = rxKotlinSubscribeBy(onError, onComplete, onNext)

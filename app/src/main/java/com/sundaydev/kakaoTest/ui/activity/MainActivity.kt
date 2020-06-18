@@ -26,6 +26,13 @@ class MainActivity : AppCompatActivity() {
         initNavigation()
     }
 
+    override fun onBackPressed() {
+        when (findNavController(R.id.nav_host).currentDestination?.id) {
+            R.id.movieFragment, R.id.tvFragment, R.id.peopleFragment -> finish()
+            else -> super.onBackPressed()
+        }
+    }
+
     override fun onSupportNavigateUp(): Boolean = findNavController(R.id.nav_host).navigateUp(appBarConfiguration)
 
     private fun initNavigation() {
