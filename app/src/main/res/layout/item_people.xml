@@ -41,18 +41,20 @@
                 app:layout_constraintGuide_end="8dp" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/poster"
+                android:id="@+id/profile_image"
                 loadImage="@{item.profile_path}"
+                original="@{true}"
                 android:layout_width="match_parent"
-                android:layout_height="260dp"
-                android:scaleType="fitXY"
+                android:layout_height="140dp"
+                android:scaleType="centerCrop"
+                android:transitionName="@{@string/transition_image(item.id)}"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Space
                 android:id="@+id/bottom_space"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/poster" />
+                app:layout_constraintTop_toBottomOf="@id/profile_image" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title"

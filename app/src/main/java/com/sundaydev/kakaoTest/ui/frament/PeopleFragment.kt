@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,34 +21,41 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PeopleFragment : Fragment() {
     private val viewModel: PeopleViewModel by viewModel()
-    private val adapter: PeopleAdapter by lazy { PeopleAdapter(onClick) }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: FragmentPeopleBinding = FragmentPeopleBinding.inflate(inflater)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
-        binding.peopleRecycler.adapter = adapter
-        return binding.root
-    }
+    private val peopleAdapter: PeopleAdapter by lazy { PeopleAdapter(onClick) }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        FragmentPeopleBinding.inflate(inflater).let {
+            it.lifecycleOwner = viewLifecycleOwner
+            it.viewModel = viewModel
+            it.peopleRecycler.adapter = peopleAdapter
+            it.root
+        }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.list.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+        viewModel.list.observe(viewLifecycleOwner, Observer { peopleAdapter.submitList(it) })
     }
 
-    private val onClick: ((People) -> Unit)? = {
-        val action = PeopleFragmentDirections.actionPeopleFragmentToPeopleDetailFragment(it.toPeopleDetail())
-        findNavController().navigate(action)
+    private val onClick: ((Pair<AppCompatImageView, People>) -> Unit)? = { pair ->
+        val extras = androidx.navigation.fragment.FragmentNavigatorExtras(pair.first to pair.first.transitionName)
+        val action = PeopleFragmentDirections.actionPeopleFragmentToPeopleDetailFragment(pair.second.toPeopleDetail())
+        findNavController().navigate(action, extras)
     }
 }
 
-class PeopleAdapter(private val onClick: ((People) -> Unit)?) : PagedListAdapter<People, BindingViewHolder>(diffPeopleUtil) {
+class PeopleAdapter(private val onClick: ((Pair<AppCompatImageView, People>) -> Unit)?) :
+    PagedListAdapter<People, BindingViewHolder>(diffPeopleUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder =
         BindingViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_people, parent, false))
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         holder.binding.setVariable(BR.item, getItem(position))
         holder.binding.executePendingBindings()
-        holder.binding.root.setOnClickListener { getItem(position)?.let { onClick?.invoke(it) } }
+        holder.binding.root.setOnClickListener {
+            getItem(position)?.let {
+                val imageView = holder.binding.root.findViewById<AppCompatImageView>(R.id.profile_image)
+                onClick?.invoke(Pair(imageView, it))
+            }
+        }
     }
 }
 

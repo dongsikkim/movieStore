@@ -4,10 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.transition.ArcMotion
+import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialContainerTransform.FIT_MODE_HEIGHT
+import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.databinding.FragmentPeopleDetailBinding
 import com.sundaydev.kakaoTest.viewmodel.PeopleDetailViewModel
+import kotlinx.android.synthetic.main.fragment_people_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PeopleDetailFragment : Fragment() {
@@ -19,9 +25,13 @@ class PeopleDetailFragment : Fragment() {
         val receiveData = args.peopleData
 
         receiveData?.run {
-            viewModel.detailData.postValue(this)
+            viewModel.detailData.value = this
             viewModel.loadPeopleDetail(id)
         }
+        val transform = MaterialContainerTransform()
+        transform.setPathMotion(ArcMotion())
+        transform.fitMode = FIT_MODE_HEIGHT
+        sharedElementEnterTransition = transform
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -29,5 +39,12 @@ class PeopleDetailFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.detailData.value?.let { detail ->
+            ViewCompat.setTransitionName(people_image, getString(R.string.transition_image, detail.id))
+        }
     }
 }

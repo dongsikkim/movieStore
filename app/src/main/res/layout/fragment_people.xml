@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:padding="16dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2" />
+            app:spanCount="3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
