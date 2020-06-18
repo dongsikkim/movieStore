@@ -56,7 +56,9 @@
             android:id="@+id/info_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:padding="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@id/poster"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/poster"
@@ -69,50 +71,61 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_begin="4dp" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/backdrop"
+                loadImage="@{viewModel.detailData.backdrop_path}"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title"
                 style="@style/Headline6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="@{viewModel.detailData.title}"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/backdrop"
                 tools:text="애드 아스트라(2019)" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/grade"
+                android:id="@+id/release_date"
+                style="@style/Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="PG-13"
-                app:layout_constraintStart_toEndOf="@id/info_guide_start"
-                app:layout_constraintTop_toBottomOf="@id/title"
-                tools:text="PG-13" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/release_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@{viewModel.detailData.release_date}"
                 app:layout_constraintStart_toEndOf="@id/info_guide_start"
-                app:layout_constraintTop_toBottomOf="@id/grade" />
+                app:layout_constraintTop_toBottomOf="@id/title" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/genres"
+                style="@style/Body2"
                 genres="@{viewModel.detailData.genres}"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/info_guide_start"
-                app:layout_constraintTop_toBottomOf="@id/release_date" />
+                android:ellipsize="end"
+                android:gravity="end"
+                android:singleLine="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/rate_layout"
+                app:layout_constraintTop_toTopOf="@id/rate_layout" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/running_time"
+                style="@style/Body2"
                 runtime="@{viewModel.detailData.runtime}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/info_guide_start"
-                app:layout_constraintTop_toBottomOf="@id/genres" />
+                android:layout_marginTop="16dp"
+                android:gravity="end"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="@id/rate_layout"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <include
                 android:id="@+id/rate_layout"
@@ -120,8 +133,8 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="@id/grade"
-                app:layout_constraintTop_toBottomOf="@id/running_time"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/release_date"
                 app:rate="@{viewModel.detailData.displayVote()}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
