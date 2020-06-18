@@ -46,8 +46,7 @@
             loadImage="@{viewModel.detailData.poster_path}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:foregroundGravity="left"
-            app:cardCornerRadius="8dp"
+            android:scaleType="fitCenter"
             app:layout_constraintEnd_toStartOf="@id/info_layout"
             app:layout_constraintStart_toEndOf="@id/guide_start"
             app:layout_constraintTop_toBottomOf="@id/guide_top" />

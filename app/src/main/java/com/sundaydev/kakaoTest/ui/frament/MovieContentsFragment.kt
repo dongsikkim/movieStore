@@ -32,7 +32,7 @@ fun createMovieContentsFragment(movieTabInfo: MovieTabInfo) = MovieContentsFragm
 
 class MovieContentsFragment : Fragment() {
     private val viewModelMovie: MovieContentsViewModel by viewModel { parametersOf(filterName) }
-    private val adapterMovie: MovieContentsAdapter by lazy { MovieContentsAdapter(onClicks) }
+    private val movieAdapter: MovieContentsAdapter by lazy { MovieContentsAdapter(onClicks) }
     lateinit var filterName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,13 +41,13 @@ class MovieContentsFragment : Fragment() {
         filterName = tab.name
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: FragmentMovieContentsBinding = FragmentMovieContentsBinding.inflate(inflater)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModelMovie
-        binding.contentsRecycler.adapter = adapterMovie
-        return binding.root
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        FragmentMovieContentsBinding.inflate(inflater).let {
+            it.lifecycleOwner = viewLifecycleOwner
+            it.viewModel = viewModelMovie
+            it.contentsRecycler.adapter = movieAdapter
+            it.root
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,9 +62,9 @@ class MovieContentsFragment : Fragment() {
 
     private fun setData(it: PagedList<Movie>?) {
         if (refresh_layout.isRefreshing) {
-            adapterMovie.submitList(null)
+            movieAdapter.submitList(null)
         }
-        adapterMovie.submitList(it)
+        movieAdapter.submitList(it)
         viewModelMovie.isRefresh.postValue(false)
     }
 
@@ -79,7 +79,8 @@ class MovieContentsFragment : Fragment() {
     }
 
     private val onClicks: ((Pair<AppCompatImageView, Movie>) -> Unit)? = { pair ->
-        findNavController().navigate(R.id.detailFragment, bundleOf(KEY_MOVIE to pair.second.toDetail()))
+        val extras = androidx.navigation.fragment.FragmentNavigatorExtras(pair.first to pair.first.transitionName)
+        findNavController().navigate(R.id.detailFragment, bundleOf(KEY_MOVIE to pair.second.toDetail()), null, extras)
     }
 }
 

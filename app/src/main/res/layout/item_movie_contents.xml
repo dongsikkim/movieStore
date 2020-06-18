@@ -44,6 +44,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/poster"
                 loadImage="@{item.poster_path}"
+                android:transitionName="@{@string/transition_image(item.id)}"
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
                 android:scaleType="fitXY"
