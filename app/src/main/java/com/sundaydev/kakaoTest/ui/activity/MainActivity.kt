@@ -35,6 +35,9 @@ class MainActivity : AppCompatActivity() {
                         toolbar.visibility = View.GONE
                         bottom_nav.visibility = View.GONE
                     }
+                    R.id.detailFragment, R.id.peopleDetailFragment -> {
+                        bottom_nav.visibility = View.GONE
+                    }
                     else -> {
                         toolbar.visibility = View.VISIBLE
                         bottom_nav.visibility = View.VISIBLE
