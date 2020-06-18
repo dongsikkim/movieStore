@@ -40,6 +40,11 @@ fun setPercentage(view: AppCompatTextView, percentage: Int) {
     }
 }
 
+@BindingAdapter("refresh")
+fun setRefresh(layout : androidx.swiperefreshlayout.widget.SwipeRefreshLayout, isRefresh : Boolean) {
+    layout.isRefreshing = isRefresh
+}
+
 
 @BindingAdapter("genres")
 fun setGenres(view: AppCompatTextView, genreArray: List<Genres>?) {

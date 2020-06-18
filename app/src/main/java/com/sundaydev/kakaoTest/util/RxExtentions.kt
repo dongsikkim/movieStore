@@ -44,7 +44,7 @@ fun <T : Any> Single<T>.subscribeByCommon(onError: (Throwable) -> Unit = onError
 
 @CheckReturnValue
 @SchedulerSupport(SchedulerSupport.NONE)
-fun Completable.subscribeByCommon(onComplete: () -> Unit = onCompleteStub, onError: (Throwable) -> Unit = onErrorStub) =
+fun Completable.subscribeByCommon(onError: (Throwable) -> Unit = onErrorStub, onComplete: () -> Unit = onCompleteStub) =
     rxKotlinSubscribeBy(onError, onComplete)
 
 @CheckReturnValue

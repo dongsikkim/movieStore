@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.sundaydev.kakaoTest.BR
@@ -49,14 +50,21 @@ class MovieContentsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        refresh_layout.setOnRefreshListener {
-            viewModelMovie.refresh()
-        }
+        refresh_layout.setOnRefreshListener { viewModelMovie.refresh() }
+        retry.setOnClickListener { viewModelMovie.refresh() }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModelMovie.list.observe(viewLifecycleOwner, Observer { adapterMovie.submitList(it); refresh_layout.isRefreshing = false })
+        viewModelMovie.list.observe(viewLifecycleOwner, Observer { setData(it) })
+    }
+
+    private fun setData(it: PagedList<Movie>?) {
+        if (refresh_layout.isRefreshing) {
+            adapterMovie.submitList(null)
+        }
+        adapterMovie.submitList(it)
+        viewModelMovie.isRefresh.postValue(false)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
