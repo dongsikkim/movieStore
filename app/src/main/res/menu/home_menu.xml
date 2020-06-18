@@ -19,11 +19,4 @@
         android:icon="@drawable/ic_people"
         android:title=""
         app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/myInfoFragment"
-        android:icon="@drawable/ic_my_info"
-        android:title=""
-        app:showAsAction="ifRoom" />
-
 </menu>

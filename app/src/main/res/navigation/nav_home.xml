@@ -37,16 +37,17 @@
             app:destination="@id/peopleDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/myInfoFragment"
-        android:name="com.sundaydev.kakaoTest.ui.frament.MyInfoFragment"
-        android:label="@string/my_page" />
-    <fragment
         android:id="@+id/peopleDetailFragment"
         android:name="com.sundaydev.kakaoTest.ui.frament.PeopleDetailFragment"
-        android:label="PeopleDetailFragment">
+        android:label="@string/people_detail">
         <action
-            android:id="@+id/action_peopleDetailFragment_to_detailFragment2"
+            android:id="@+id/action_peopleDetailFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <argument
+            android:name="peopleData"
+            app:argType="com.sundaydev.kakaoTest.data.PeopleDetail"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"

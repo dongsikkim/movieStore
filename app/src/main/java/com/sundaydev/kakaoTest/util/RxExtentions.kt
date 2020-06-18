@@ -39,7 +39,7 @@ fun <T : Any> Observable<T>.workOnSchedulerIo(): Observable<T> =
 
 @CheckReturnValue
 @SchedulerSupport(SchedulerSupport.NONE)
-fun <T : Any> Single<T>.subscribeByCommon(onSuccess: (T) -> Unit = onNextStub, onError: (Throwable) -> Unit = onErrorStub) =
+fun <T : Any> Single<T>.subscribeByCommon(onError: (Throwable) -> Unit = onErrorStub, onSuccess: (T) -> Unit = onNextStub) =
     rxKotlinSubscribeBy(onError, onSuccess)
 
 @CheckReturnValue

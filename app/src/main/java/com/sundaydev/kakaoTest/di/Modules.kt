@@ -23,7 +23,6 @@ val repositoryModule = module {
 val viewModelModule = module {
     viewModel { SplashViewModel() }
     viewModel { MovieViewModel() }
-    viewModel { MyInfoViewModel() }
     viewModel { PeopleDetailViewModel() }
     viewModel { PeopleViewModel() }
     viewModel { TvViewModel() }

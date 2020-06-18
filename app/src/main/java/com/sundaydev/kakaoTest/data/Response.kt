@@ -1,12 +1,16 @@
 package com.sundaydev.kakaoTest.data
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 data class Tvs(val page: Int, val total_results: Int, val total_pages: Int, val results: List<Tv>)
 data class Movies(val page: Int, val total_results: Int, val total_pages: Int, val results: List<Movie>)
 data class Peoples(val page: Int, val total_results: Int, val total_pages: String, val results: List<People>)
 
-open class MediaItem(
+data class Tv(
+    val first_air_date: String, val origin_country: List<String>,
+    val name: String, val original_name: String,
     val poster_path: String? = null,
     val popularity: Float = 0F,
     val original_language: String = "",
@@ -21,21 +25,38 @@ open class MediaItem(
     fun displayVote() = (vote_average * 10).toInt()
 }
 
-data class Tv(
-    val first_air_date: String, val origin_country: List<String>,
-    val name: String, val original_name: String
-) : MediaItem()
-
 data class Movie(
     val adult: Boolean = false, val release_date: String = "",
     val original_title: String = "", val title: String = "",
-    val video: Boolean = false
-) : MediaItem()
+    val video: Boolean = false, val poster_path: String? = null,
+    val popularity: Float = 0F,
+    val original_language: String = "",
+    var id: Int = -1,
+    val media_type: String = "",
+    val backdrop_path: String? = null,
+    val vote_average: Float = 0F,
+    val overview: String = "",
+    val genre_ids: List<Int> = mutableListOf(),
+    val vote_count: Int = 0
+) {
+    fun displayVote() = (vote_average * 10).toInt()
+}
 
 data class People(
     val profile_path: String, val adult: Boolean, val id: Int,
     /*val known_for: List<String>, */val name: String, val popularity: Float
-)
+) {
+    fun toPeopleDetail() = PeopleDetail(id = id, adult = adult, name = name, popularity = popularity, profile_path = profile_path)
+}
+
+@Parcelize
+data class PeopleDetail(
+    val birthday: String = "", val known_for_department: String = "",
+    val deathday: String = "", val id: Int = -1, val name: String = "", val also_known_as: List<String> = mutableListOf(),
+    val gender: Int = 0, val biography: String = "", val popularity: Float = 0f, val place_of_birth: String? = null,
+    val profile_path: String? = null, val adult: Boolean = false, val imdb_id: String = "",
+    val homepage: String? = null
+) : Parcelable
 
 data class PeopleCredits(
     val cast: List<PeopleCast>, val crew: List<PeopleCrew>, val id: Int
@@ -85,14 +106,6 @@ data class MovieDetail(
 ) {
     fun displayVote() = (vote_average * 10).toInt()
 }
-
-data class PeopleDetail(
-    val birthday: String, val known_for_department: String,
-    val deathday: String, val id: Int, val name: String, val also_known_as: List<String>,
-    val gender: Int, val biography: String, val popularity: Float, val place_of_birth: String?,
-    val profile_path: String?, val adult: Boolean, val imdb_id: String,
-    val homepage: String?
-)
 
 data class Credit(val id: Int, val cast: List<Cast>, val crew: List<Crew>)
 

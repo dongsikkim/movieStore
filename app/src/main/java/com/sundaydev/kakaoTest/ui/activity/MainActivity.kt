@@ -12,7 +12,7 @@ import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
-val navIds = setOf(R.id.movieFragment, R.id.tvFragment, R.id.peopleFragment, R.id.myInfoFragment)
+val navIds = setOf(R.id.movieFragment, R.id.tvFragment, R.id.peopleFragment)
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
