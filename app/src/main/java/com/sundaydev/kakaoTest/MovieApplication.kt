@@ -18,6 +18,7 @@ class MovieApplication : Application(), KoinComponent {
             androidLogger()
             modules(applicationModules)
         }
+        setDarkTheme()
     }
 
     private fun setDarkTheme() {
