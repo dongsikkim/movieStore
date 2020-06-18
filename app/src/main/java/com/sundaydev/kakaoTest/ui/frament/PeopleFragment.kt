@@ -35,10 +35,8 @@ class PeopleFragment : Fragment() {
     }
 
     private val onClick: ((People) -> Unit)? = {
-        findNavController().navigate(
-            R.id.action_peopleFragment_to_peopleDetailFragment,
-            androidx.core.os.bundleOf(KEY_PEOPLE to it.toPeopleDetail())
-        )
+        val action = PeopleFragmentDirections.actionPeopleFragmentToPeopleDetailFragment(it.toPeopleDetail())
+        findNavController().navigate(action)
     }
 }
 

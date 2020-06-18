@@ -40,6 +40,11 @@ data class Movie(
     val vote_count: Int = 0
 ) {
     fun displayVote() = (vote_average * 10).toInt()
+    fun toDetail() = MovieDetail(
+        adult = adult, id = id, release_date = release_date, original_title = original_title,
+        title = title, video = video, poster_path = poster_path, popularity = popularity, original_language = original_language,
+        backdrop_path = backdrop_path, vote_average = vote_average, overview = overview, vote_count = vote_count
+    )
 }
 
 data class People(
@@ -92,18 +97,19 @@ data class PeopleCrew(
     val adult: Boolean, val release_date: Date
 )
 
+@Parcelize
 data class MovieDetail(
-    val adult: Boolean, val backdrop_path: String?,
-    val budget: Int, val genres: List<Genres>,
-    val homepage: String?, val id: Int, val imdb_id: String?,
-    val original_language: String, val original_title: String,
-    val overview: String?, val popularity: Float,
-    val poster_path: String?, val production_companies: List<Company>,
-    val production_countries: List<Country>, val release_date: String,
-    val revenue: Int, val runtime: Int?, val spoken_languages: List<SpokenLanguage>,
-    val status: String, val tagline: String?, val title: String, val video: Boolean,
-    val vote_average: Float, val vote_count: Int
-) {
+    val adult: Boolean = false, val backdrop_path: String? = null,
+    val budget: Int = 0, val genres: List<Genres> = mutableListOf(),
+    val homepage: String? = null, val id: Int = 0, val imdb_id: String? = null,
+    val original_language: String = "", val original_title: String = "",
+    val overview: String? = null, val popularity: Float = 0F,
+    val poster_path: String? = null, val production_companies: List<Company> = mutableListOf(),
+    val production_countries: List<Country> = mutableListOf(), val release_date: String = "",
+    val revenue: Int = 0, val runtime: Int? = null, val spoken_languages: List<SpokenLanguage> = mutableListOf(),
+    val status: String = "", val tagline: String? = null, val title: String = "", val video: Boolean = false,
+    val vote_average: Float = 0F, val vote_count: Int = 0
+) : Parcelable {
     fun displayVote() = (vote_average * 10).toInt()
 }
 
@@ -121,7 +127,14 @@ data class Crew(
     val profile_path: String?
 )
 
-data class Genres(val id: Int, val name: String)
-data class Company(val name: String, val id: Int, val logo_path: String?, val origin_country: String)
-data class Country(val iso_3166_1: String, val name: String)
-data class SpokenLanguage(val iso_639_1: String, val name: String)
+@Parcelize
+data class Genres(val id: Int, val name: String) : Parcelable
+
+@Parcelize
+data class Company(val name: String, val id: Int, val logo_path: String?, val origin_country: String) : Parcelable
+
+@Parcelize
+data class Country(val iso_3166_1: String, val name: String) : Parcelable
+
+@Parcelize
+data class SpokenLanguage(val iso_639_1: String, val name: String) : Parcelable

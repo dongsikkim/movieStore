@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.sundaydev.kakaoTest.R
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navIds)
         initNavigation()
     }
+
+    override fun onSupportNavigateUp(): Boolean = findNavController(R.id.nav_host).navigateUp(appBarConfiguration)
 
     private fun initNavigation() {
         findNavController(R.id.nav_host).run {

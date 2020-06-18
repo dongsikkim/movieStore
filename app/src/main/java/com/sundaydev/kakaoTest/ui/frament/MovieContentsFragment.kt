@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -77,19 +78,23 @@ class MovieContentsFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private val onClicks: ((Movie) -> Unit)? = {
-        findNavController().navigate(R.id.detailFragment, bundleOf(KEY_MOVIE_ID to it.id))
+    private val onClicks: ((Pair<AppCompatImageView, Movie>) -> Unit)? = { pair ->
+        findNavController().navigate(R.id.detailFragment, bundleOf(KEY_MOVIE to pair.second.toDetail()))
     }
 }
 
-class MovieContentsAdapter(private val onClicks: ((Movie) -> Unit)? = null) : PagedListAdapter<Movie, BindingViewHolder>(diffMovieUtil) {
+class MovieContentsAdapter(private val onClicks: ((Pair<AppCompatImageView, Movie>) -> Unit)? = null) :
+    PagedListAdapter<Movie, BindingViewHolder>(diffMovieUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder =
         BindingViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_movie_contents, parent, false))
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         holder.binding.setVariable(BR.item, getItem(position))
         holder.binding.executePendingBindings()
-        holder.binding.root.setOnClickListener { getItem(position)?.let { onClicks?.invoke(it) } }
+        holder.binding.root.setOnClickListener {
+            val poster = holder.binding.root.findViewById<AppCompatImageView>(R.id.poster)
+            getItem(position)?.let { onClicks?.invoke(Pair(poster, it)) }
+        }
     }
 }
 

@@ -14,4 +14,6 @@
     <string name="my_page">마이페이지</string>
     <string name="note_rate">NR</string>
     <string name="people_detail">인물상세</string>
+    <string name="movie_detail">영화상세</string>
+    <string name="transition_image">transition_image_%1d</string>
 </resources>
