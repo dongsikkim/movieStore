@@ -2,6 +2,7 @@ package com.sundaydev.kakaoTest.ui.frament
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
@@ -17,6 +18,7 @@ import com.sundaydev.kakaoTest.data.Movie
 import com.sundaydev.kakaoTest.databinding.FragmentMovieContentsBinding
 import com.sundaydev.kakaoTest.util.BindingViewHolder
 import com.sundaydev.kakaoTest.viewmodel.MovieContentsViewModel
+import kotlinx.android.synthetic.main.fragment_movie_contents.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -45,9 +47,26 @@ class MovieContentsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        refresh_layout.setOnRefreshListener {
+            viewModelMovie.refresh()
+        }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModelMovie.list.observe(viewLifecycleOwner, Observer { adapterMovie.submitList(it) })
+        viewModelMovie.list.observe(viewLifecycleOwner, Observer { adapterMovie.submitList(it); refresh_layout.isRefreshing = false })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_refresh -> {
+                refresh_layout.isRefreshing = true;
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private val onClicks: ((Movie) -> Unit)? = {

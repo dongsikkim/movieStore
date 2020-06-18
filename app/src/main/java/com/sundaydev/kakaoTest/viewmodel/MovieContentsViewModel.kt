@@ -7,4 +7,7 @@ import org.koin.core.inject
 class MovieContentsViewModel(filterName: String) : BaseViewModel(), KoinComponent {
     private val repository: ContentsRepository by inject()
     val list = repository.loadMovies(filterName, disposable)
+    fun refresh() {
+        repository.refreshMovie()
+    }
 }

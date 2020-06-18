@@ -33,6 +33,10 @@ class MovieDataSource(private val apiService: MovieService, private val filterNa
         MovieTabInfo.MOVIE_TOP_RATE.name -> apiService.getTopRatedMovie(page)
         else -> apiService.getUpComingMovie(page)
     }
+
+    fun refresh() {
+        invalidate()
+    }
 }
 
 class MovieDataSourceFactory(
@@ -41,5 +45,7 @@ class MovieDataSourceFactory(
     private val disposable: CompositeDisposable
 ) :
     DataSource.Factory<Int, Movie>() {
-    override fun create(): DataSource<Int, Movie> = MovieDataSource(apiService, filterName, disposable)
+    lateinit var dataSource: MovieDataSource
+    override fun create(): DataSource<Int, Movie> = MovieDataSource(apiService, filterName, disposable).also { dataSource = it }
+    fun refresh() = dataSource.refresh()
 }

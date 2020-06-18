@@ -30,10 +30,18 @@ interface ContentsRepository {
 
     fun loadTvs(filterName: String, disposable: CompositeDisposable): LiveData<PagedList<Tv>>
     fun loadMovies(filterName: String, disposable: CompositeDisposable): LiveData<PagedList<Movie>>
+
+    fun refreshTv()
+    fun refreshMovie()
 }
+
+const val CONTENTS_PAGE_SIZE = 10
 
 class ContentsRepositoryImpl : ContentsRepository, KoinComponent {
     private val apiClient: MovieClient by inject()
+    private lateinit var tvDataSourceFactory: TvDataSourceFactory
+    private lateinit var movieDataSourceFactory: MovieDataSourceFactory
+
     override fun getPopularTv(page: Int): Single<Tvs> = apiClient.movieApi.getPopularTv(page).workOnSchedulerIo()
 
     override fun getNowPlayingTv(page: Int): Single<Tvs> = apiClient.movieApi.getNowPlayingTv(page).workOnSchedulerIo()
@@ -54,12 +62,15 @@ class ContentsRepositoryImpl : ContentsRepository, KoinComponent {
 
     override fun getTvDetail(id: Int): Single<MovieDetail> = apiClient.movieApi.getTvDetail(id).workOnSchedulerIo()
     override fun loadTvs(filterName: String, disposable: CompositeDisposable): LiveData<PagedList<Tv>> {
-        val dataSourceFactory = TvDataSourceFactory(apiClient.movieApi, filterName, disposable)
-        return LivePagedListBuilder(dataSourceFactory, Config(pageSize = 10)).build()
+        tvDataSourceFactory = TvDataSourceFactory(apiClient.movieApi, filterName, disposable)
+        return LivePagedListBuilder(tvDataSourceFactory, Config(pageSize = CONTENTS_PAGE_SIZE)).build()
     }
 
     override fun loadMovies(filterName: String, disposable: CompositeDisposable): LiveData<PagedList<Movie>> {
-        val dataSourceFactory = MovieDataSourceFactory(apiClient.movieApi, filterName, disposable)
-        return LivePagedListBuilder(dataSourceFactory, Config(pageSize = 10)).build()
+        movieDataSourceFactory = MovieDataSourceFactory(apiClient.movieApi, filterName, disposable)
+        return LivePagedListBuilder(movieDataSourceFactory, Config(pageSize = CONTENTS_PAGE_SIZE)).build()
     }
+
+    override fun refreshTv() = tvDataSourceFactory.refresh()
+    override fun refreshMovie() = movieDataSourceFactory.refresh()
 }
