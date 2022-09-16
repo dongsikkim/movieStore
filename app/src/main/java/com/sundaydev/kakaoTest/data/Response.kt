@@ -1,6 +1,8 @@
 package com.sundaydev.kakaoTest.data
 
 import android.os.Parcelable
+import com.sundaydev.kakaoTest.network.URL_ORIGIN_IMAGE
+import com.sundaydev.kakaoTest.network.URL_SUMMARY_IMAGE
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -61,7 +63,23 @@ data class PeopleDetail(
     val gender: Int = 0, val biography: String = "", val popularity: Float = 0f, val place_of_birth: String? = null,
     val profile_path: String? = null, val adult: Boolean = false, val imdb_id: String = "",
     val homepage: String? = null
-) : Parcelable
+) : Parcelable {
+    fun getProfileUrl(isOriginal: Boolean = true): String {
+        return if (isOriginal) {
+            "$URL_ORIGIN_IMAGE${profile_path}"
+        } else {
+            "$URL_SUMMARY_IMAGE${profile_path}"
+        }
+    }
+
+    fun getAlsoKnownAs(): String {
+        return if (also_known_as.isNotEmpty()) {
+            also_known_as.joinToString()
+        } else {
+            ""
+        }
+    }
+}
 
 data class PeopleCredits(
     val cast: List<PeopleCast>, val crew: List<PeopleCrew>, val id: Int

@@ -5,27 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.transition.ArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialContainerTransform.FIT_MODE_HEIGHT
-import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.glide.GlideImage
-import com.sundaydev.kakaoTest.R
-import com.sundaydev.kakaoTest.theme.typography
 import com.sundaydev.kakaoTest.viewmodel.PeopleDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -53,52 +40,14 @@ class PeopleDetailFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val rootView = LayoutInflater.from(context).inflate(R.layout.fragment_people_detail, container, false)
-
-        rootView.findViewById<ComposeView>(R.id.people_detail_compose_view).apply {
+        return ComposeView(inflater.context).apply {
             setContent {
-                val imageUrl by viewModel.peopleImageUrl.observeAsState()
-                val name by viewModel.peopleName.observeAsState()
-                val birthday by viewModel.peopleBirthDay.observeAsState()
-                val alsoKnownAs by viewModel.alsoKnowAs.observeAsState()
-                val biography by viewModel.biography.observeAsState()
-
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .verticalScroll(rememberScrollState())
-                ) {
-                    GlideImage(
-                        imageModel = imageUrl,
-                        imageOptions = ImageOptions(
-                            contentScale = ContentScale.Crop,
-                            alignment = Alignment.Center
-                        )
-                    )
-                    Text(
-                        text = name ?: "",
-                        style = typography.h6,
-                        modifier = Modifier.padding(top = 8.dp)
-                    )
-                    Text(
-                        text = birthday ?: "",
-                        style = typography.subtitle2,
-                        modifier = Modifier.padding(top = 8.dp)
-                    )
-                    Text(
-                        text = alsoKnownAs ?: "",
-                        modifier = Modifier
-                            .padding(top = 8.dp)
-                    )
-                    Text(
-                        text = biography ?: "",
-                        style = typography.body2,
-                        modifier = Modifier.padding(top = 16.dp)
-                    )
+                val detailData by viewModel.detailData.observeAsState()
+                detailData?.let {
+                    PeopleDetailContents(peopleDetail = it)
                 }
             }
         }
-        return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
