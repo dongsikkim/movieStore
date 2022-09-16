@@ -51,13 +51,6 @@ fun setRefresh(layout: androidx.swiperefreshlayout.widget.SwipeRefreshLayout, is
 }
 
 
-@BindingAdapter("genres")
-fun setGenres(view: AppCompatTextView, genreArray: List<Genres>?) {
-    if (!genreArray.isNullOrEmpty()) {
-        view.text = genreArray.joinToString { genres -> genres.name }
-    }
-}
-
 @BindingAdapter("runtime")
 fun setRuntime(view: AppCompatTextView, minute: Int) {
     val builder = StringBuilder()

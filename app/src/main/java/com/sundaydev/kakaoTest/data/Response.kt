@@ -128,7 +128,43 @@ data class MovieDetail(
     val status: String = "", val tagline: String? = null, val title: String = "", val video: Boolean = false,
     val vote_average: Float = 0F, val vote_count: Int = 0
 ) : Parcelable {
+
+    fun getDisplayPosterUrl(isOriginal: Boolean = true): String {
+        return if (isOriginal) {
+            "${URL_ORIGIN_IMAGE}${poster_path}"
+        } else {
+            "${URL_SUMMARY_IMAGE}${poster_path}"
+        }
+    }
+
+    fun getDisplayBackdropUrl(isOriginal: Boolean = true): String {
+        return if (isOriginal) {
+            "${URL_ORIGIN_IMAGE}${backdrop_path}"
+        } else {
+            "${URL_SUMMARY_IMAGE}${backdrop_path}"
+        }
+    }
+
     fun displayVote() = (vote_average * 10).toInt()
+
+    fun getDisplayGenres(): String {
+        return if (genres.isNotEmpty()) {
+            genres.joinToString { genres -> genres.name }
+        } else {
+            ""
+        }
+    }
+
+    fun getDisplayRuntime(): String {
+        val builder = StringBuilder()
+        val runtime = runtime ?: 0
+
+        if (runtime / 60 > 0) {
+            builder.append(runtime / 60).append("h ")
+        }
+        builder.append(runtime % 60).append("m")
+        return builder.toString()
+    }
 }
 
 data class Credit(val id: Int, val cast: List<Cast>, val crew: List<Crew>)
