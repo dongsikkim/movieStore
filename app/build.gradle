@@ -131,4 +131,11 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
     // UI Tests
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.2.1'
+    // compose runtime
+    implementation "androidx.compose.runtime:runtime:1.2.1"
+    implementation "androidx.compose.runtime:runtime-livedata:1.2.1"
+
+    // glide landscapist
+    implementation "com.github.skydoves:landscapist-glide:2.0.0"
+
 }

@@ -68,13 +68,6 @@ fun setRuntime(view: AppCompatTextView, minute: Int) {
     view.text = builder.toString()
 }
 
-@BindingAdapter("otherName")
-fun setOtherName(view: AppCompatTextView, nameList: List<String>?) {
-    if (!nameList.isNullOrEmpty()) {
-        view.text = nameList.joinToString()
-    }
-}
-
 @BindingAdapter("defaultItemDecorator")
 fun setDefaultItemDecorator(recyclerView: RecyclerView, drawable: Drawable) {
     recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL).apply {
