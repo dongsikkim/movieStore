@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.sundaydev.kakaoTest.ui.frament.SplashFragment"
+        android:name="com.sundaydev.kakaoTest.ui.splash.SplashFragment"
         android:label="SplashFragment">
         <action
             android:id="@+id/action_splashFragment_to_movieFragment"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/tvFragment"
-        android:name="com.sundaydev.kakaoTest.ui.frament.TvFragment"
+        android:name="com.sundaydev.kakaoTest.ui.tv.TvFragment"
         android:label="@string/tv">
         <action
             android:id="@+id/action_tvFragment_to_detailFragment"
@@ -22,11 +22,11 @@
     </fragment>
     <fragment
         android:id="@+id/movieFragment"
-        android:name="com.sundaydev.kakaoTest.ui.frament.MovieFragment"
+        android:name="com.sundaydev.kakaoTest.ui.movie.MovieFragment"
         android:label="@string/movie"/>
     <fragment
         android:id="@+id/peopleFragment"
-        android:name="com.sundaydev.kakaoTest.ui.frament.PeopleFragment"
+        android:name="com.sundaydev.kakaoTest.ui.people.PeopleFragment"
         android:label="@string/people">
         <action
             android:id="@+id/action_peopleFragment_to_peopleDetailFragment"
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/peopleDetailFragment"
-        android:name="com.sundaydev.kakaoTest.ui.frament.PeopleDetailFragment"
+        android:name="com.sundaydev.kakaoTest.ui.people.PeopleDetailFragment"
         android:label="@string/people_detail">
         <action
             android:id="@+id/action_peopleDetailFragment_to_detailFragment"
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.sundaydev.kakaoTest.ui.frament.DetailFragment"
+        android:name="com.sundaydev.kakaoTest.ui.detail.DetailFragment"
         android:label="@string/movie_detail">
         <action
             android:id="@+id/action_detailFragment_to_peopleDetailFragment"
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieContentsFragment"
-        android:name="com.sundaydev.kakaoTest.ui.frament.MovieContentsFragment"
+        android:name="com.sundaydev.kakaoTest.ui.movie.MovieContentsFragment"
         android:label="" >
         <action
             android:id="@+id/action_movieContentsFragment_to_detailFragment"

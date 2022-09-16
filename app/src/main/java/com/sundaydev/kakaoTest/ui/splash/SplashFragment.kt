@@ -1,4 +1,4 @@
-package com.sundaydev.kakaoTest.ui.frament
+package com.sundaydev.kakaoTest.ui.splash
 
 import android.os.Bundle
 import android.os.Handler

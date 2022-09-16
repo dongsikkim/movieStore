@@ -1,4 +1,4 @@
-package com.sundaydev.kakaoTest.ui.frament
+package com.sundaydev.kakaoTest.ui.tv
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +14,7 @@ import com.sundaydev.kakaoTest.BR
 import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.data.Tv
 import com.sundaydev.kakaoTest.databinding.FragmentTvContentsBinding
+import com.sundaydev.kakaoTest.ui.movie.FILTER_NAME
 import com.sundaydev.kakaoTest.util.BindingViewHolder
 import com.sundaydev.kakaoTest.viewmodel.TvContentsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel

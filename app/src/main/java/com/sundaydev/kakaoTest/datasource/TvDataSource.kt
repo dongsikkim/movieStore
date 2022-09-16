@@ -4,7 +4,7 @@ import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.sundaydev.kakaoTest.data.Tv
 import com.sundaydev.kakaoTest.network.MovieService
-import com.sundaydev.kakaoTest.ui.frament.TvTabInfo
+import com.sundaydev.kakaoTest.ui.tv.TvTabInfo
 import com.sundaydev.kakaoTest.util.subscribeByCommon
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo

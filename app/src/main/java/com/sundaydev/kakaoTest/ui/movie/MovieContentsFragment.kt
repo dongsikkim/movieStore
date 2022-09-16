@@ -1,4 +1,4 @@
-package com.sundaydev.kakaoTest.ui.frament
+package com.sundaydev.kakaoTest.ui.movie
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +18,7 @@ import com.sundaydev.kakaoTest.BR
 import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.data.Movie
 import com.sundaydev.kakaoTest.databinding.FragmentMovieContentsBinding
+import com.sundaydev.kakaoTest.ui.detail.KEY_MOVIE
 import com.sundaydev.kakaoTest.util.BindingViewHolder
 import com.sundaydev.kakaoTest.viewmodel.MovieContentsViewModel
 import kotlinx.android.synthetic.main.fragment_movie_contents.*

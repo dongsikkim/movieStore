@@ -1,4 +1,4 @@
-package com.sundaydev.kakaoTest.ui.frament
+package com.sundaydev.kakaoTest.ui.tv
 
 import android.annotation.SuppressLint
 import android.os.Bundle

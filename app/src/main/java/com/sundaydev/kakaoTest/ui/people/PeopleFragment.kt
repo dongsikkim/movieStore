@@ -1,4 +1,4 @@
-package com.sundaydev.kakaoTest.ui.frament
+package com.sundaydev.kakaoTest.ui.people
 
 import android.os.Bundle
 import android.view.LayoutInflater

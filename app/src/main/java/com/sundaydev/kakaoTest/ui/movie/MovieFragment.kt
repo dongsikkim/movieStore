@@ -1,4 +1,4 @@
-package com.sundaydev.kakaoTest.ui.frament
+package com.sundaydev.kakaoTest.ui.movie
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -1,17 +1,16 @@
-package com.sundaydev.kakaoTest.ui.frament
+package com.sundaydev.kakaoTest.ui.detail
 
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
+import androidx.compose.material.Surface
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.transition.TransitionInflater
-import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.data.MovieDetail
-import com.sundaydev.kakaoTest.databinding.FragmentDetailBinding
 import com.sundaydev.kakaoTest.viewmodel.DetailViewModel
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,16 +31,16 @@ class DetailFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: FragmentDetailBinding = FragmentDetailBinding.inflate(inflater)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
-        return binding.root
+        return ComposeView(inflater.context).apply {
+
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ViewCompat.setTransitionName(poster, getString(R.string.transition_image, movieId))
-        setImageViewSize()
+        //TODO-동식 트랜지션 문제 해결하기
+//        ViewCompat.setTransitionName(poster, getString(R.string.transition_image, movieId))
+//        setImageViewSize()
     }
 
     private fun setImageViewSize() = activity?.let {
