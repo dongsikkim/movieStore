@@ -64,7 +64,9 @@ class PeopleDetailFragment : Fragment() {
                 val biography by viewModel.biography.observeAsState()
 
                 Column(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .verticalScroll(rememberScrollState())
                 ) {
                     GlideImage(
                         imageModel = imageUrl,

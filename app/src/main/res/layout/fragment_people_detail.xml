@@ -8,13 +8,8 @@
             type="com.sundaydev.kakaoTest.viewmodel.PeopleDetailViewModel" />
     </data>
 
-    <ScrollView
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/people_detail_compose_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/people_detail_compose_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+        android:layout_height="wrap_content"/>
 </layout>
