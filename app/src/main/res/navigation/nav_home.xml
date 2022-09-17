@@ -26,7 +26,7 @@
         android:label="@string/movie"/>
     <fragment
         android:id="@+id/peopleFragment"
-        android:name="com.sundaydev.kakaoTest.ui.people.PeopleFragment"
+        android:name="com.sundaydev.kakaoTest.ui.people.PeopleListFragment"
         android:label="@string/people">
         <action
             android:id="@+id/action_peopleFragment_to_peopleDetailFragment"

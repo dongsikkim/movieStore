@@ -40,6 +40,9 @@ interface MovieService {
     @GET("person/popular")
     fun getPeoples(@Query("page") page: Int = 1): Single<Peoples>
 
+    @GET("person/popular")
+    suspend fun getPeopleList(@Query("page") page: Int = 1): Peoples
+
     @GET("person/{person_id}")
     fun getPeopleDetail(@Path("person_id") person_id: Int): Single<PeopleDetail>
 

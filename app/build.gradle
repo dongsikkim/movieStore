@@ -73,7 +73,7 @@ dependencies {
     //stetho
     implementation 'com.facebook.stetho:stetho:1.6.0'
 
-    def retrofit2_version = '2.3.0'
+    def retrofit2_version = '2.9.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
 
@@ -96,8 +96,9 @@ dependencies {
 
     implementation "com.google.code.gson:gson:2.9.1"
 
-    def paging_version = "2.1.2"
+    def paging_version = "3.1.1"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    implementation 'androidx.paging:paging-compose:1.0.0-alpha16'
 
     def room_version = "2.2.5"
     implementation "androidx.room:room-runtime:$room_version"

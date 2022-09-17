@@ -23,31 +23,21 @@ fun PeopleDetailContents(peopleDetail: PeopleDetail) {
             .verticalScroll(rememberScrollState())
     ) {
         GlideImage(
-            imageModel = peopleDetail.getProfileUrl(isOriginal = true),
-            imageOptions = ImageOptions(
-                contentScale = ContentScale.Crop,
-                alignment = Alignment.Center
+            imageModel = peopleDetail.getProfileUrl(isOriginal = true), imageOptions = ImageOptions(
+                contentScale = ContentScale.Crop, alignment = Alignment.Center
             )
         )
         Text(
-            text = peopleDetail.name,
-            style = typography.h6,
-            modifier = Modifier.padding(top = 8.dp)
+            text = peopleDetail.name, style = typography.h6, modifier = Modifier.padding(top = 8.dp)
         )
         Text(
-            text = peopleDetail.birthday,
-            style = typography.subtitle2,
-            modifier = Modifier.padding(top = 8.dp)
+            text = peopleDetail.birthday, style = typography.subtitle2, modifier = Modifier.padding(top = 8.dp)
         )
         Text(
-            text = peopleDetail.getAlsoKnownAs(),
-            modifier = Modifier
-                .padding(top = 8.dp)
+            text = peopleDetail.getAlsoKnownAs(), modifier = Modifier.padding(top = 8.dp)
         )
         Text(
-            text = peopleDetail.biography,
-            style = typography.body2,
-            modifier = Modifier.padding(top = 16.dp)
+            text = peopleDetail.biography, style = typography.body2, modifier = Modifier.padding(top = 16.dp)
         )
     }
 }

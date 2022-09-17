@@ -1,34 +1,29 @@
 package com.sundaydev.kakaoTest.datasource
 
-import androidx.paging.DataSource
-import androidx.paging.PageKeyedDataSource
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.sundaydev.kakaoTest.data.People
-import com.sundaydev.kakaoTest.network.MovieService
-import com.sundaydev.kakaoTest.util.subscribeByCommon
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
+import com.sundaydev.kakaoTest.data.Peoples
+import com.sundaydev.kakaoTest.repository.PeopleRepository
 
-class PeopleDataSource(private val apiService: MovieService, private val disposable: CompositeDisposable) :
-    PageKeyedDataSource<Int, People>() {
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, People>) {
-        apiService.getPeoples(1)
-            .subscribeByCommon(onSuccess = { item -> callback.onResult(item.results, 0, item.total_results, null, item.page + 1) })
-            .addTo(disposable)
+class PeoplePagingSource(
+    val repository: PeopleRepository
+) : PagingSource<Int, People>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, People> {
+        return try {
+            val nexPage = params.key ?: 1
+            val response: Peoples = repository.getPeopleList(nexPage)
+            LoadResult.Page(
+                data = response.results,
+                prevKey = if (nexPage == 1) null else nexPage - 1,
+                nextKey = response.page.plus(1)
+            )
+        } catch (e: Exception) {
+            LoadResult.Error(e)
+        }
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, People>) {
-        apiService.getPeoples(params.key)
-            .subscribeByCommon(onSuccess = { item -> callback.onResult(item.results, params.key + 1) })
-            .addTo(disposable)
+    override fun getRefreshKey(state: PagingState<Int, People>): Int? {
+        TODO("NOT YET")
     }
-
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, People>) {}
-}
-
-class PeopleDataSourceFactory(
-    private val apiService: MovieService,
-    private val disposable: CompositeDisposable
-) :
-    DataSource.Factory<Int, People>() {
-    override fun create(): DataSource<Int, People> = PeopleDataSource(apiService, disposable)
 }

@@ -54,6 +54,14 @@ data class People(
     /*val known_for: List<String>, */val name: String, val popularity: Float
 ) {
     fun toPeopleDetail() = PeopleDetail(id = id, adult = adult, name = name, popularity = popularity, profile_path = profile_path)
+
+    fun displayProfileUrl(isOriginal: Boolean = true): String {
+        return if (isOriginal) {
+            "${URL_ORIGIN_IMAGE}${profile_path}"
+        } else {
+            "${URL_SUMMARY_IMAGE}${profile_path}"
+        }
+    }
 }
 
 @Parcelize
