@@ -1,5 +1,6 @@
 package com.sundaydev.kakaoTest.ui.people
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -10,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.PagingData
@@ -21,7 +23,10 @@ import kotlinx.coroutines.flow.Flow
 
 
 @Composable
-fun PeopleListContents(pager: Flow<PagingData<People>>) {
+fun PeopleListContents(
+    pager: Flow<PagingData<People>>,
+    onClick : ((People) -> Unit)? = null
+) {
     val lazyPagingItems = pager.collectAsLazyPagingItems()
     if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
         Text(
@@ -51,16 +56,27 @@ fun PeopleListContents(pager: Flow<PagingData<People>>) {
 
         items(count = lazyPagingItems.itemCount) { item ->
             lazyPagingItems[item]?.let {
-                PeopleGridItem(people = it)
+                PeopleGridItem(people = it, onClick = onClick)
             }
         }
     }
 }
 
 @Composable
-fun PeopleGridItem(people: People) {
+fun PeopleGridItem(
+    people: People,
+    onClick : ((People) -> Unit)? = null
+) {
     Card(
-        modifier = Modifier.padding(4.dp),
+        modifier = Modifier
+            .padding(4.dp)
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onTap = {
+                        onClick?.invoke(people)
+                    }
+                )
+            },
         shape = RoundedCornerShape(8.dp),
         elevation = 10.dp,
     ) {
@@ -78,5 +94,6 @@ fun PeopleGridItem(people: People) {
                 )
             )
         }
+
     }
 }
