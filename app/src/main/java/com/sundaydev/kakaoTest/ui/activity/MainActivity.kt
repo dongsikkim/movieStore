@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.databinding.ActivityMainBinding
+import com.sundaydev.kakaoTest.util.hideSystemBars
 import kotlinx.android.synthetic.main.activity_main.*
 
 val navIds = setOf(R.id.movieFragment, R.id.tvFragment, R.id.peopleFragment)
@@ -24,6 +25,12 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         appBarConfiguration = AppBarConfiguration(navIds)
         initNavigation()
+        hideSystemBars()
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        hideSystemBars()
     }
 
     override fun onBackPressed() {
@@ -56,5 +63,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }
