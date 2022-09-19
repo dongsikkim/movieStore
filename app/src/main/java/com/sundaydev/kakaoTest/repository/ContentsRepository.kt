@@ -1,30 +1,21 @@
 package com.sundaydev.kakaoTest.repository
 
-import androidx.lifecycle.LiveData
-import androidx.paging.Config
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
-import com.sundaydev.kakaoTest.data.Movie
 import com.sundaydev.kakaoTest.data.MovieDetail
+import com.sundaydev.kakaoTest.data.Movies
 import com.sundaydev.kakaoTest.data.Tvs
-import com.sundaydev.kakaoTest.datasource.MovieDataSourceFactory
 import com.sundaydev.kakaoTest.network.MovieClient
+import com.sundaydev.kakaoTest.ui.movie.MovieTabInfo
 import com.sundaydev.kakaoTest.ui.tv.TvTabInfo
 import com.sundaydev.kakaoTest.util.workOnSchedulerIo
 import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 interface ContentsRepository {
     fun getMovieDetail(id: Int): Single<MovieDetail>
     fun getTvDetail(id: Int): Single<MovieDetail>
-
-    suspend fun loadTvs(filterName: String, page : Int): Tvs
-    fun loadMovies(filterName: String, disposable: CompositeDisposable): MovieResult
-
-//    fun refreshTv(factory: TvDataSourceFactory?): Unit?
-    fun refreshMovie(factory: MovieDataSourceFactory?): Unit?
+    suspend fun loadTvs(filterName: String, page: Int): Tvs
+    suspend fun loadMovies(filterName: String, page: Int): Movies
 }
 
 const val CONTENTS_PAGE_SIZE = 20
@@ -36,9 +27,13 @@ class ContentsRepositoryImpl : ContentsRepository, KoinComponent {
 
     override fun getTvDetail(id: Int): Single<MovieDetail> = apiClient.movieApi.getTvDetail(id).workOnSchedulerIo()
 
-    override fun loadMovies(filterName: String, disposable: CompositeDisposable) =
-        MovieDataSourceFactory(apiClient.movieApi, filterName, disposable).let { factory ->
-            MovieResult(factory, LivePagedListBuilder(factory, Config(pageSize = CONTENTS_PAGE_SIZE)).build())
+    override suspend fun loadMovies(filterName: String, page: Int): Movies =
+        when (filterName) {
+            MovieTabInfo.MOVIE_POPULAR.name -> apiClient.movieApi.getPopularMovie(page)
+            MovieTabInfo.MOVIE_NOW_PLAYING.name -> apiClient.movieApi.getNowPlayingMovie(page)
+            MovieTabInfo.MOVIE_UPCOMING.name -> apiClient.movieApi.getUpComingMovie(page)
+            MovieTabInfo.MOVIE_TOP_RATE.name -> apiClient.movieApi.getTopRatedMovie(page)
+            else -> apiClient.movieApi.getUpComingMovie(page)
         }
 
     override suspend fun loadTvs(filterName: String, page: Int): Tvs =
@@ -49,11 +44,4 @@ class ContentsRepositoryImpl : ContentsRepository, KoinComponent {
             TvTabInfo.TV_TOP_RATE.name -> apiClient.movieApi.getTopRatedTv(page)
             else -> apiClient.movieApi.getPopularTv(page)
         }
-
-
-//    override fun refreshTv(factory: TvDataSourceFactory?) = factory?.refresh()
-
-    override fun refreshMovie(factory: MovieDataSourceFactory?) = factory?.refresh()
 }
-
-data class MovieResult(val factory: MovieDataSourceFactory, val movieData: LiveData<PagedList<Movie>>)

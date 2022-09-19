@@ -8,16 +8,16 @@ import retrofit2.http.Query
 
 interface MovieService {
     @GET("movie/popular")
-    fun getPopularMovie(@Query("page") page: Int = 1): Single<Movies>
+    suspend fun getPopularMovie(@Query("page") page: Int = 1): Movies
 
     @GET("movie/now_playing")
-    fun getNowPlayingMovie(@Query("page") page: Int = 1): Single<Movies>
+    suspend fun getNowPlayingMovie(@Query("page") page: Int = 1): Movies
 
     @GET("movie/upcoming")
-    fun getUpComingMovie(@Query("page") page: Int = 1): Single<Movies>
+    suspend fun getUpComingMovie(@Query("page") page: Int = 1): Movies
 
     @GET("movie/top_rated")
-    fun getTopRatedMovie(@Query("page") page: Int = 1): Single<Movies>
+    suspend fun getTopRatedMovie(@Query("page") page: Int = 1): Movies
 
     @GET("tv/popular")
     suspend fun getPopularTv(@Query("page") page: Int = 1): Tvs

@@ -1,16 +1,29 @@
 package com.sundaydev.kakaoTest.viewmodel
 
-import androidx.lifecycle.MutableLiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.sundaydev.kakaoTest.data.Movie
+import com.sundaydev.kakaoTest.datasource.MoviePagingSource
+import com.sundaydev.kakaoTest.repository.CONTENTS_PAGE_SIZE
 import com.sundaydev.kakaoTest.repository.ContentsRepository
+import kotlinx.coroutines.flow.Flow
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 class MovieContentsViewModel(filterName: String) : BaseViewModel(), KoinComponent {
     private val repository: ContentsRepository by inject()
-    private val dataSource = repository.loadMovies(filterName, disposable)
-    private val factory = dataSource.factory
-    val isRefresh = MutableLiveData(false)
-    val list = dataSource.movieData
-    val error = dataSource.factory.error
-    fun refresh() = repository.refreshMovie(factory).also { isRefresh.postValue(true) }
+
+    val list: Flow<PagingData<Movie>> = Pager(
+        PagingConfig(
+            pageSize = CONTENTS_PAGE_SIZE,
+            enablePlaceholders = true,
+            prefetchDistance = CONTENTS_PAGE_SIZE * 3
+        )
+    ) {
+        MoviePagingSource(
+            repository = repository,
+            filterName = filterName
+        )
+    }.flow
 }

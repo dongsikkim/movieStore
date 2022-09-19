@@ -66,6 +66,22 @@ data class Movie(
         title = title, video = video, poster_path = poster_path, popularity = popularity, original_language = original_language,
         backdrop_path = backdrop_path, vote_average = vote_average, overview = overview, vote_count = vote_count
     )
+
+    fun getDisplayRatePercentage() = when (displayVote()) {
+        in 1..100 -> {
+            val spannableString = SpannableStringBuilder("${displayVote()}%")
+            spannableString.apply { setSpan(RelativeSizeSpan(1.2f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
+        }
+        else -> "N/R"
+    }
+
+    fun displayPosterUrl(isOriginal: Boolean = true): String {
+        return if (isOriginal) {
+            "${URL_ORIGIN_IMAGE}${poster_path}"
+        } else {
+            "${URL_SUMMARY_IMAGE}${poster_path}"
+        }
+    }
 }
 
 data class People(
