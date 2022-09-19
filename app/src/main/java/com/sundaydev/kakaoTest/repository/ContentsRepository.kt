@@ -6,10 +6,10 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.sundaydev.kakaoTest.data.Movie
 import com.sundaydev.kakaoTest.data.MovieDetail
-import com.sundaydev.kakaoTest.data.Tv
+import com.sundaydev.kakaoTest.data.Tvs
 import com.sundaydev.kakaoTest.datasource.MovieDataSourceFactory
-import com.sundaydev.kakaoTest.datasource.TvDataSourceFactory
 import com.sundaydev.kakaoTest.network.MovieClient
+import com.sundaydev.kakaoTest.ui.tv.TvTabInfo
 import com.sundaydev.kakaoTest.util.workOnSchedulerIo
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -20,10 +20,10 @@ interface ContentsRepository {
     fun getMovieDetail(id: Int): Single<MovieDetail>
     fun getTvDetail(id: Int): Single<MovieDetail>
 
-    fun loadTvs(filterName: String, factory: TvDataSourceFactory, disposable: CompositeDisposable): LiveData<PagedList<Tv>>
+    suspend fun loadTvs(filterName: String, page : Int): Tvs
     fun loadMovies(filterName: String, disposable: CompositeDisposable): MovieResult
 
-    fun refreshTv(factory: TvDataSourceFactory?): Unit?
+//    fun refreshTv(factory: TvDataSourceFactory?): Unit?
     fun refreshMovie(factory: MovieDataSourceFactory?): Unit?
 }
 
@@ -41,10 +41,17 @@ class ContentsRepositoryImpl : ContentsRepository, KoinComponent {
             MovieResult(factory, LivePagedListBuilder(factory, Config(pageSize = CONTENTS_PAGE_SIZE)).build())
         }
 
-    override fun loadTvs(filterName: String, factory: TvDataSourceFactory, disposable: CompositeDisposable) =
-        LivePagedListBuilder(factory, Config(pageSize = CONTENTS_PAGE_SIZE)).build()
+    override suspend fun loadTvs(filterName: String, page: Int): Tvs =
+        when (filterName) {
+            TvTabInfo.TV_POPULAR.name -> apiClient.movieApi.getPopularTv(page)
+            TvTabInfo.TV_TODAY.name -> apiClient.movieApi.getTodayTv(page)
+            TvTabInfo.TV_NOW_PLAYING.name -> apiClient.movieApi.getNowPlayingTv(page)
+            TvTabInfo.TV_TOP_RATE.name -> apiClient.movieApi.getTopRatedTv(page)
+            else -> apiClient.movieApi.getPopularTv(page)
+        }
 
-    override fun refreshTv(factory: TvDataSourceFactory?) = factory?.refresh()
+
+//    override fun refreshTv(factory: TvDataSourceFactory?) = factory?.refresh()
 
     override fun refreshMovie(factory: MovieDataSourceFactory?) = factory?.refresh()
 }

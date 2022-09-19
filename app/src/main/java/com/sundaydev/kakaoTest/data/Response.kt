@@ -1,6 +1,9 @@
 package com.sundaydev.kakaoTest.data
 
 import android.os.Parcelable
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.RelativeSizeSpan
 import com.sundaydev.kakaoTest.network.URL_ORIGIN_IMAGE
 import com.sundaydev.kakaoTest.network.URL_SUMMARY_IMAGE
 import kotlinx.android.parcel.Parcelize
@@ -25,6 +28,22 @@ data class Tv(
     val vote_count: Int = 0
 ) {
     fun displayVote() = (vote_average * 10).toInt()
+
+    fun getDisplayRatePercentage() = when (displayVote()) {
+        in 1..100 -> {
+            val spannableString = SpannableStringBuilder("${displayVote()}%")
+            spannableString.apply { setSpan(RelativeSizeSpan(1.2f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
+        }
+        else -> "N/R"
+    }
+
+    fun displayPosterUrl(isOriginal: Boolean = true): String {
+        return if (isOriginal) {
+            "${URL_ORIGIN_IMAGE}${poster_path}"
+        } else {
+            "${URL_SUMMARY_IMAGE}${poster_path}"
+        }
+    }
 }
 
 data class Movie(

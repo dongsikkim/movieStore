@@ -1,14 +1,29 @@
 package com.sundaydev.kakaoTest.viewmodel
 
-import com.sundaydev.kakaoTest.datasource.TvDataSourceFactory
-import com.sundaydev.kakaoTest.network.MovieClient
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.sundaydev.kakaoTest.data.Tv
+import com.sundaydev.kakaoTest.datasource.TvPagingSource
+import com.sundaydev.kakaoTest.repository.CONTENTS_PAGE_SIZE
 import com.sundaydev.kakaoTest.repository.ContentsRepository
+import kotlinx.coroutines.flow.Flow
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 class TvContentsViewModel(filterName: String) : BaseViewModel(), KoinComponent {
-    private val apiClient : MovieClient by inject()
-    private  var tvDataSourceFactory = TvDataSourceFactory(apiClient.movieApi, filterName, disposable)
     private val repository: ContentsRepository by inject()
-    val list = repository.loadTvs(filterName, tvDataSourceFactory, disposable)
+
+    val tvList: Flow<PagingData<Tv>> = Pager(
+        PagingConfig(
+            pageSize = CONTENTS_PAGE_SIZE,
+            enablePlaceholders = true,
+            prefetchDistance = CONTENTS_PAGE_SIZE * 3
+        )
+    ) {
+        TvPagingSource(
+            repository = repository,
+            filterName = filterName
+        )
+    }.flow
 }

@@ -143,4 +143,5 @@ dependencies {
     // glide landscapist
     implementation "com.github.skydoves:landscapist-glide:2.0.0"
 
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 }
