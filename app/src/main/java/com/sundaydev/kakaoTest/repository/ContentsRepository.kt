@@ -27,7 +27,7 @@ interface ContentsRepository {
     fun refreshMovie(factory: MovieDataSourceFactory?): Unit?
 }
 
-const val CONTENTS_PAGE_SIZE = 10
+const val CONTENTS_PAGE_SIZE = 20
 
 class ContentsRepositoryImpl : ContentsRepository, KoinComponent {
     private val apiClient: MovieClient by inject()

@@ -28,31 +28,32 @@ fun PeopleListContents(
     onClick : ((People) -> Unit)? = null
 ) {
     val lazyPagingItems = pager.collectAsLazyPagingItems()
-    if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
-        Text(
-            text = "Waiting for items to load from the backend",
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(120.dp)
-        )
-        return
-    }
+//TODO-동식 추후 리프레시 필요시 추가
+//    if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
+//        Text(
+//            text = "Waiting for items to load from the backend",
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(120.dp)
+//        )
+//        return
+//    }
 
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 128.dp),
         contentPadding = PaddingValues(8.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-
-        if (lazyPagingItems.loadState.append == LoadState.Loading) {
-            item {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentWidth(Alignment.CenterHorizontally)
-                )
-            }
-        }
+//TODO-동식 추후 로딩 표시 필요시 추가(푸터로 넣는것 고민필요)
+//        if (lazyPagingItems.loadState.append == LoadState.Loading) {
+//            item {
+//                CircularProgressIndicator(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .wrapContentWidth(Alignment.CenterHorizontally)
+//                )
+//            }
+//        }
 
         items(count = lazyPagingItems.itemCount) { item ->
             lazyPagingItems[item]?.let {

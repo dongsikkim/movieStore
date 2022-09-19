@@ -24,6 +24,9 @@ class PeoplePagingSource(
     }
 
     override fun getRefreshKey(state: PagingState<Int, People>): Int? {
-        TODO("NOT YET")
+        return state.anchorPosition?.let { anchorPosition ->
+            val anchorPage = state.closestPageToPosition(anchorPosition)
+            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+        }
     }
 }
