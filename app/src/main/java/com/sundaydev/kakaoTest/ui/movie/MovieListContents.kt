@@ -1,18 +1,22 @@
 package com.sundaydev.kakaoTest.ui.movie
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.paging.PagingData
@@ -21,6 +25,8 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.skydoves.landscapist.glide.GlideImage
 import com.sundaydev.kakaoTest.data.Movie
+import com.sundaydev.kakaoTest.theme.colorPrimary
+import com.sundaydev.kakaoTest.theme.colorPrimaryDark
 import com.sundaydev.kakaoTest.theme.typography
 import kotlinx.coroutines.flow.Flow
 
@@ -68,8 +74,9 @@ fun MovieGridItem(
         shape = RoundedCornerShape(8.dp),
         elevation = 10.dp,
     ) {
+        // ConstrainLayout 예제
         ConstraintLayout {
-            val (poster, name, date) = createRefs()
+            val (poster, name, date, rate) = createRefs()
 
             GlideImage(imageModel = movie.displayPosterUrl(isOriginal = false), modifier = Modifier
                 .height(220.dp)
@@ -95,6 +102,39 @@ fun MovieGridItem(
                     bottom.linkTo(parent.bottom)
                     start.linkTo(name.start)
                 })
+            Box(
+                modifier = Modifier
+                    .padding(
+                        start = 8.dp
+                    )
+                    .height(48.dp)
+                    .width(48.dp)
+                    .constrainAs(rate) {
+                        bottom.linkTo(name.top)
+                    }
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clip(CircleShape)
+                        .background(
+                            color = colorPrimary
+                        )
+                )
+                Text(
+                    text = movie.getDisplayRatePercentage().toString(),
+                    style = typography.overline,
+                    modifier = Modifier.align(alignment = Alignment.Center),
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
+                )
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(48.dp, 48.dp),
+                    progress = movie.vote_average / 10f,
+                    color = colorPrimaryDark
+                )
+            }
         }
     }
 }
