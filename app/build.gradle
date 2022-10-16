@@ -74,9 +74,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:20.1.2'
 
     //navigation
-    def nav_version = "2.3.0-alpha06"
+    def nav_version = "2.5.2"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-compose:$nav_version"
 
     // Koin for Kotlin
     def koin_version = '2.1.5'
@@ -121,11 +122,6 @@ dependencies {
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     implementation 'androidx.paging:paging-compose:1.0.0-alpha16'
 
-    def room_version = "2.2.5"
-    implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-rxjava2:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-
     // glide compose
     implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
 
@@ -135,10 +131,10 @@ dependencies {
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-    implementation group: 'com.google.android.material', name: 'material', version: '1.3.0-alpha01'
+    implementation group: 'com.google.android.material', name: 'material', version: '1.8.0-alpha01'
 
     // Integration with activities
-    implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation 'androidx.activity:activity-compose:1.6.0'
     // Compose Material Design
     implementation 'androidx.compose.material:material:1.2.1'
     // Animations

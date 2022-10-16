@@ -17,17 +17,16 @@ import com.sundaydev.kakaoTest.viewmodel.PeopleDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PeopleDetailFragment : Fragment() {
-    private val args: PeopleDetailFragmentArgs by navArgs()
+//    private val args: PeopleDetailFragmentArgs by navArgs()
     val viewModel: PeopleDetailViewModel by viewModel()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val receiveData = args.peopleData
-
-        receiveData?.run {
-            viewModel.detailData.value = this
-            viewModel.loadPeopleDetail(id)
-        }
+//        val receiveData = args.peopleData
+//        receiveData?.run {
+//            viewModel.detailData.value = this
+//            viewModel.loadPeopleDetail(id)
+//        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

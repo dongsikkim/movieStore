@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.compose.rememberNavController
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi

@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.activity.MainActivity">
 
-        <View
+        <!--<View
             android:id="@+id/statusbar_space"
             android:layout_width="match_parent"
             android:layout_height="24dp"
@@ -46,7 +46,7 @@
             android:visibility="gone"
             app:labelVisibilityMode="unlabeled"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:menu="@menu/home_menu" />
+            app:menu="@menu/home_menu" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

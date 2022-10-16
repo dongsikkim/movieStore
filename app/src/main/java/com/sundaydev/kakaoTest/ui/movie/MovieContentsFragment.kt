@@ -57,6 +57,6 @@ class MovieContentsFragment : Fragment() {
     }
 
     private val onClicks: (Movie) -> Unit = { movie ->
-        findNavController().navigate(R.id.detailFragment, bundleOf(KEY_MOVIE to movie.toDetail()), null)
+//        findNavController().navigate(R.id.detailFragment, bundleOf(KEY_MOVIE to movie.toDetail()), null)
     }
 }

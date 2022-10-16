@@ -21,13 +21,6 @@ import kotlinx.android.synthetic.main.fragment_movie.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-enum class MovieTabInfo(@IdRes val resourceId: Int) {
-    MOVIE_POPULAR(R.string.popular),
-    MOVIE_NOW_PLAYING(R.string.now_playing),
-    MOVIE_UPCOMING(R.string.upcoming),
-    MOVIE_TOP_RATE(R.string.top_rate),
-}
-
 class MovieFragment : Fragment() {
     private lateinit var viewPagerAdapter: MovieViewPagerAdapter
     private val viewModel: MovieViewModel by viewModel()

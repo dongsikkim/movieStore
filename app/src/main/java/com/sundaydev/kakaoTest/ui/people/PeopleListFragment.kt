@@ -24,7 +24,7 @@ class PeopleListFragment : Fragment() {
         }
 
     private val onClick: (People) -> Unit = { people ->
-        val action = PeopleListFragmentDirections.actionPeopleFragmentToPeopleDetailFragment(people.toPeopleDetail())
-        findNavController().navigate(action)
+//        val action = PeopleListFragmentDirections.actionPeopleFragmentToPeopleDetailFragment(people.toPeopleDetail())
+//        findNavController().navigate(action)
     }
 }
