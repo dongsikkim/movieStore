@@ -1,6 +1,13 @@
 package com.sundaydev.kakaoTest.ui.detail
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
@@ -12,11 +19,12 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.glide.GlideImage
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.sundaydev.kakaoTest.data.MovieDetail
 import com.sundaydev.kakaoTest.theme.typography
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun DetailContents(detail: MovieDetail) {
     Box(modifier = Modifier.padding(all = 16.dp)) {
@@ -29,22 +37,21 @@ fun DetailContents(detail: MovieDetail) {
                 val currentWidth = configuration.screenWidthDp.dp / 2
 
                 GlideImage(
-                    imageModel = detail.getDisplayPosterUrl(isOriginal = true),
+                    model = detail.getDisplayPosterUrl(isOriginal = true),
+                    contentScale = ContentScale.FillBounds,
+                    contentDescription = null,
                     modifier = Modifier
                         .height(currentWidth)
-                        .width(currentWidth),
-                    imageOptions = ImageOptions(
-                        contentScale = ContentScale.FillBounds
-                    )
-
+                        .width(currentWidth)
                 )
 
                 Column(modifier = Modifier.padding(start = 8.dp, end = 16.dp, bottom = 8.dp)) {
                     GlideImage(
-                        imageModel = detail.getDisplayBackdropUrl(),
+                        model = detail.getDisplayBackdropUrl(),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(100.dp)
+                            .height(100.dp),
+                        contentDescription = null,
                     )
                     Spacer(modifier = Modifier.padding(top = 16.dp))
                     Text(

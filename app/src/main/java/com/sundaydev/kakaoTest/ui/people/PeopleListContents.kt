@@ -1,7 +1,11 @@
 package com.sundaydev.kakaoTest.ui.people
 
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,10 +14,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.skydoves.landscapist.glide.GlideImage
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.sundaydev.kakaoTest.data.People
 import com.sundaydev.kakaoTest.theme.typography
 import kotlinx.coroutines.flow.Flow
@@ -22,7 +28,7 @@ import kotlinx.coroutines.flow.Flow
 @Composable
 fun PeopleListContents(
     pager: Flow<PagingData<People>>,
-    onClick : ((People) -> Unit)? = null
+    onClick: ((People) -> Unit)? = null
 ) {
     val lazyPagingItems = pager.collectAsLazyPagingItems()
 //TODO-동식 추후 리프레시 필요시 추가
@@ -60,10 +66,11 @@ fun PeopleListContents(
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun PeopleGridItem(
     people: People,
-    onClick : ((People) -> Unit)? = null
+    onClick: ((People) -> Unit)? = null
 ) {
     Card(
         modifier = Modifier
@@ -80,7 +87,10 @@ fun PeopleGridItem(
     ) {
         Column {
             GlideImage(
-                imageModel = people.displayProfileUrl(isOriginal = false), modifier = Modifier.height(220.dp)
+                model = people.displayProfileUrl(isOriginal = false),
+                modifier = Modifier.height(220.dp),
+                contentScale = ContentScale.Crop,
+                contentDescription = null
             )
             Text(
                 text = people.name,

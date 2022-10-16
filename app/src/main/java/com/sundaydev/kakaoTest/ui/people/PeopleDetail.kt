@@ -10,11 +10,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.glide.GlideImage
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.sundaydev.kakaoTest.data.PeopleDetail
 import com.sundaydev.kakaoTest.theme.typography
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun PeopleDetailContents(peopleDetail: PeopleDetail) {
     Column(
@@ -23,9 +24,10 @@ fun PeopleDetailContents(peopleDetail: PeopleDetail) {
             .verticalScroll(rememberScrollState())
     ) {
         GlideImage(
-            imageModel = peopleDetail.getProfileUrl(isOriginal = true), imageOptions = ImageOptions(
-                contentScale = ContentScale.Crop, alignment = Alignment.Center
-            )
+            model = peopleDetail.getProfileUrl(isOriginal = true),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            alignment = Alignment.Center
         )
         Text(
             text = peopleDetail.name, style = typography.h6, modifier = Modifier.padding(top = 8.dp)

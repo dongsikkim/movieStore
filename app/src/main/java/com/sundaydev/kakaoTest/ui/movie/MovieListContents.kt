@@ -16,14 +16,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.skydoves.landscapist.glide.GlideImage
 import com.sundaydev.kakaoTest.data.Movie
 import com.sundaydev.kakaoTest.theme.colorPrimary
 import com.sundaydev.kakaoTest.theme.colorPrimaryDark
@@ -58,6 +60,7 @@ fun MovieListContents(
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun MovieGridItem(
     movie: Movie,
@@ -78,13 +81,18 @@ fun MovieGridItem(
         ConstraintLayout {
             val (poster, name, date, rate) = createRefs()
 
-            GlideImage(imageModel = movie.displayPosterUrl(isOriginal = false), modifier = Modifier
-                .height(220.dp)
-                .constrainAs(poster) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(name.top)
-                }
-                .padding(bottom = 16.dp))
+            GlideImage(
+                contentDescription = null,
+                model = movie.displayPosterUrl(isOriginal = false),
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .height(220.dp)
+                    .constrainAs(poster) {
+                        top.linkTo(parent.top)
+                        bottom.linkTo(name.top)
+                    }
+                    .padding(bottom = 16.dp)
+            )
 
             Text(text = movie.original_title, style = typography.body2, modifier = Modifier
                 .padding(

@@ -17,12 +17,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.skydoves.landscapist.glide.GlideImage
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.sundaydev.kakaoTest.data.Tv
 import com.sundaydev.kakaoTest.theme.typography
 import kotlinx.coroutines.flow.Flow
@@ -46,6 +48,7 @@ fun TvListContents(
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun TvGridItem(
     tv: Tv, onClick: ((Tv) -> Unit)? = null
@@ -64,13 +67,18 @@ fun TvGridItem(
         ConstraintLayout {
             val (poster, name, date, rate) = createRefs()
 
-            GlideImage(imageModel = tv.displayPosterUrl(isOriginal = false), modifier = Modifier
-                .height(220.dp)
-                .constrainAs(poster) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(name.top)
-                }
-                .padding(bottom = 16.dp))
+            GlideImage(
+                model = tv.displayPosterUrl(isOriginal = false),
+                modifier = Modifier
+                    .height(220.dp)
+                    .constrainAs(poster) {
+                        top.linkTo(parent.top)
+                        bottom.linkTo(name.top)
+                    }
+                    .padding(bottom = 16.dp),
+                contentScale = ContentScale.Crop,
+                contentDescription = null
+            )
 
             Text(text = tv.original_name, style = typography.body2, modifier = Modifier
                 .padding(

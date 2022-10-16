@@ -109,9 +109,8 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    def glideVersion = '4.13.2'
-    kapt "com.github.bumptech.glide:compiler:$glideVersion"
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    // glide compose
+    implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
@@ -137,11 +136,9 @@ dependencies {
     implementation "androidx.compose.runtime:runtime:1.2.1"
     implementation "androidx.compose.runtime:runtime-livedata:1.2.1"
 
-    // glide landscapist
-    implementation "com.github.skydoves:landscapist-glide:2.0.0"
-
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 
     //swipe Refresh
     implementation "com.google.accompanist:accompanist-swiperefresh:0.26.3-beta"
+
 }
