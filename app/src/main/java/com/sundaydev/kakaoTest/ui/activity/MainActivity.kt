@@ -3,21 +3,11 @@ package com.sundaydev.kakaoTest.ui.activity
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.platform.ComposeView
-import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.util.hideSystemBars
 
-val navIds = setOf(R.id.movieFragment, R.id.tvFragment, R.id.peopleFragment)
-
 class MainActivity : AppCompatActivity() {
-//    private lateinit var appBarConfiguration: AppBarConfiguration
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-//        binding.lifecycleOwner = this
-//        setSupportActionBar(binding.toolbar)
-//        appBarConfiguration = AppBarConfiguration(navIds)
-//        initNavigation()
         hideSystemBars()
         setContent {
             MainContents()
@@ -28,35 +18,4 @@ class MainActivity : AppCompatActivity() {
         super.onWindowFocusChanged(hasFocus)
         hideSystemBars()
     }
-
-    override fun onBackPressed() {
-//        when (findNavController(R.id.nav_host).currentDestination?.id) {
-//            R.id.movieFragment, R.id.tvFragment, R.id.peopleFragment -> finish()
-//            else -> super.onBackPressed()
-//        }
-    }
-
-//    override fun onSupportNavigateUp(): Boolean = findNavController(R.id.nav_host).navigateUp(appBarConfiguration)
-
-//    private fun initNavigation() {
-//        findNavController(R.id.nav_host).run {
-//            setupActionBarWithNavController(this, appBarConfiguration)
-//            bottom_nav.setupWithNavController(this)
-//            addOnDestinationChangedListener { controller, destination, arguments ->
-//                when (destination.id) {
-//                    R.id.splashFragment -> {
-//                        toolbar.visibility = View.GONE
-//                        bottom_nav.visibility = View.GONE
-//                    }
-//                    R.id.detailFragment, R.id.peopleDetailFragment -> {
-//                        bottom_nav.visibility = View.GONE
-//                    }
-//                    else -> {
-//                        toolbar.visibility = View.VISIBLE
-//                        bottom_nav.visibility = View.VISIBLE
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
