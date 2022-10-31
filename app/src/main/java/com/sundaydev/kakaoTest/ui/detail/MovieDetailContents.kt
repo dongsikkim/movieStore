@@ -26,7 +26,7 @@ import com.sundaydev.kakaoTest.theme.typography
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun DetailContents(detail: MovieDetail) {
+fun MovieDetailContents(detail: MovieDetail) {
     Box(modifier = Modifier.padding(all = 16.dp)) {
         Column(
             modifier = Modifier.verticalScroll(rememberScrollState())

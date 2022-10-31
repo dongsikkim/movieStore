@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.data.Movie
-import com.sundaydev.kakaoTest.ui.detail.KEY_MOVIE
 import com.sundaydev.kakaoTest.viewmodel.MovieContentsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
