@@ -28,7 +28,6 @@ fun MainContents() {
         composable(SCREEN_TV) { /*TvListContents(pager = )*/ }
         composable(SCREEN_PEOPLE) { /*PeopleListContents(pager = )*/ }
     }
-    navController.navigate("splash")
 }
 
 const val SCREEN_SPLASH = "splash"
