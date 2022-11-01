@@ -154,4 +154,9 @@ dependencies {
     //swipe Refresh
     implementation "com.google.accompanist:accompanist-swiperefresh:0.26.3-beta"
 
+    implementation "com.google.accompanist:accompanist-pager:0.27.0"
+
+    // If using indicators, also depend on
+    implementation "com.google.accompanist:accompanist-pager-indicators:0.27.0"
+
 }

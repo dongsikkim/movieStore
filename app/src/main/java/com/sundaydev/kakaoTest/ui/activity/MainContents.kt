@@ -18,11 +18,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.ui.detail.MovieDetailScreen
 import com.sundaydev.kakaoTest.ui.movie.MovieScreen
 import com.sundaydev.kakaoTest.ui.splash.SplashContents
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun MainContents() {
     val navController = rememberNavController()
@@ -31,7 +33,7 @@ fun MainContents() {
             BottomNavigation {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
-                items.forEach { screen ->
+                bottomNavigationItems.forEach { screen ->
                     BottomNavigationItem(
                         icon = {
                             Icon(
@@ -70,9 +72,10 @@ fun MainContents() {
             composable(SCREEN_PEOPLE) { /*PeopleListContents(pager = )*/ }
         }
     }
+    navController.popBackStack(route = SCREEN_SPLASH, inclusive = true)
 }
 
-val items = listOf(
+val bottomNavigationItems = listOf(
     BottomScreen.Movie,
     BottomScreen.Tv,
     BottomScreen.People,

@@ -33,13 +33,13 @@ class MovieContentsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         ComposeView(inflater.context).apply {
             setContent {
-                MovieListContents(
-                    pager = viewModelMovie.list,
-                    onClick = { onClicks.invoke(it) },
-                    refresh = {
-
-                    }
-                )
+//                MovieListContents(
+//                    pager = viewModelMovie.list,
+//                    onClick = { onClicks.invoke(it) },
+//                    refresh = {
+//
+//                    }
+//                )
             }
         }
 

@@ -20,8 +20,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.navigation.compose.rememberNavController
-import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -31,15 +29,16 @@ import com.sundaydev.kakaoTest.data.Movie
 import com.sundaydev.kakaoTest.theme.colorPrimary
 import com.sundaydev.kakaoTest.theme.colorPrimaryDark
 import com.sundaydev.kakaoTest.theme.typography
-import kotlinx.coroutines.flow.Flow
+import com.sundaydev.kakaoTest.viewmodel.MovieContentsViewModel
 
 @Composable
 fun MovieListContents(
-    pager: Flow<PagingData<Movie>>,
+    filterName: String,
+    movieViewModel: MovieContentsViewModel = MovieContentsViewModel(filterName),
     onClick: ((Movie) -> Unit)? = null,
     refresh: (() -> Unit)? = null
 ) {
-    val lazyPagingItems = pager.collectAsLazyPagingItems()
+    val lazyPagingItems = movieViewModel.list.collectAsLazyPagingItems()
     val swipeRefreshState = rememberSwipeRefreshState(false)
 
     SwipeRefresh(
