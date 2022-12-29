@@ -25,7 +25,11 @@ class MoviePagingSource(
             LoadResult.Page(
                 data = response.results,
                 prevKey = if (nexPage == 1) null else nexPage - 1,
-                nextKey = if (params.key == response.total_pages) null else response.page.plus(1)
+                nextKey = when {
+                    nexPage == response.total_pages -> null
+                    nexPage > response.total_pages -> null
+                    else -> response.page.plus(1)
+                }
             )
         } catch (e: Exception) {
             LoadResult.Error(e)
