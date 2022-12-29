@@ -19,3 +19,5 @@ class MainActivity : AppCompatActivity() {
         hideSystemBars()
     }
 }
+
+const val FILTER_NAME = "filterNAME"

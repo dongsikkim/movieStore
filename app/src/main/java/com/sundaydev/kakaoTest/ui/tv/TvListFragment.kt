@@ -9,7 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.paging.PagingData
 import com.sundaydev.kakaoTest.data.Tv
-import com.sundaydev.kakaoTest.ui.movie.FILTER_NAME
+import com.sundaydev.kakaoTest.ui.activity.FILTER_NAME
 import com.sundaydev.kakaoTest.viewmodel.TvContentsViewModel
 import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.viewmodel.ext.android.viewModel
