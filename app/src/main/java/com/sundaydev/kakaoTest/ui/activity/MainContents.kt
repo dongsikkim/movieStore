@@ -72,7 +72,12 @@ fun MainContents() {
             composable(SCREEN_TV) {
                 TvScreen(navController = navController)
             }
-            //TODO-동식 상세 페이지 내용 추가
+            composable(
+                route = "$SCREEN_TV/{tvId}",
+                arguments = listOf(navArgument("tvId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                MovieDetailScreen(movieId = backStackEntry.arguments?.getInt("movieId") ?: 0)
+            }
             composable(SCREEN_PEOPLE) { /*PeopleListContents(pager = )*/ }
         }
     }
@@ -98,4 +103,5 @@ const val SCREEN_TV = "tv"
 const val SCREEN_PEOPLE = "people"
 
 fun getMovieDetailRoute(movieId: Int): String = "${SCREEN_MOVIE_DETAIL}/$movieId"
+fun getTvDetailRoute(tvId: Int): String = "${SCREEN_TV}/$tvId"
 

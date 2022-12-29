@@ -26,7 +26,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import com.sundaydev.kakaoTest.R
-import com.sundaydev.kakaoTest.ui.activity.getMovieDetailRoute
+import com.sundaydev.kakaoTest.ui.activity.getTvDetailRoute
 import kotlinx.coroutines.launch
 
 @Composable
@@ -78,7 +78,7 @@ fun TvScreen(
             TvListContents(
                 filterName = TvTabInfo.values()[page].name,
                 onClick = {
-                    navController.navigate(getMovieDetailRoute(it.id))
+                    navController.navigate(getTvDetailRoute(it.id))
                 }
             )
         }
