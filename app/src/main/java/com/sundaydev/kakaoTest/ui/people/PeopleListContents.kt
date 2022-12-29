@@ -12,57 +12,47 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.sundaydev.kakaoTest.data.People
 import com.sundaydev.kakaoTest.theme.typography
-import kotlinx.coroutines.flow.Flow
+import com.sundaydev.kakaoTest.viewmodel.PeopleViewModel
 
 
 @Composable
 fun PeopleListContents(
-    pager: Flow<PagingData<People>>,
     onClick: ((People) -> Unit)? = null
 ) {
-    val lazyPagingItems = pager.collectAsLazyPagingItems()
-//TODO-동식 추후 리프레시 필요시 추가
-//    if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
-//        Text(
-//            text = "Waiting for items to load from the backend",
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .height(120.dp)
-//        )
-//        return
-//    }
+    val peopleViewModel: PeopleViewModel = remember { PeopleViewModel() }
+    val lazyPagingItems = peopleViewModel.peopleList.collectAsLazyPagingItems()
+    val swipeRefreshState = rememberSwipeRefreshState(false)
 
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 128.dp),
-        contentPadding = PaddingValues(8.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+    SwipeRefresh(
+        state = swipeRefreshState,
+        onRefresh = {
+            lazyPagingItems.refresh()
+        }
     ) {
-//TODO-동식 추후 로딩 표시 필요시 추가(푸터로 넣는것 고민필요)
-//        if (lazyPagingItems.loadState.append == LoadState.Loading) {
-//            item {
-//                CircularProgressIndicator(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .wrapContentWidth(Alignment.CenterHorizontally)
-//                )
-//            }
-//        }
-
-        items(count = lazyPagingItems.itemCount) { item ->
-            lazyPagingItems[item]?.let {
-                PeopleGridItem(people = it, onClick = onClick)
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(minSize = 128.dp),
+            contentPadding = PaddingValues(8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            items(count = lazyPagingItems.itemCount) { item ->
+                lazyPagingItems[item]?.let {
+                    PeopleGridItem(people = it, onClick = onClick)
+                }
             }
         }
+
     }
 }
 
