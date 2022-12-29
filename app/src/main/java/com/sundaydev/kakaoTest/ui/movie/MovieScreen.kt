@@ -1,6 +1,5 @@
 package com.sundaydev.kakaoTest.ui.movie
 
-import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Tab

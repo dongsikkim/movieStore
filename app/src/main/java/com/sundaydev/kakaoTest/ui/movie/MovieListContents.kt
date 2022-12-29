@@ -11,6 +11,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,10 +35,10 @@ import com.sundaydev.kakaoTest.viewmodel.MovieContentsViewModel
 @Composable
 fun MovieListContents(
     filterName: String,
-    movieViewModel: MovieContentsViewModel = MovieContentsViewModel(filterName),
     onClick: ((Movie) -> Unit)? = null,
     refresh: (() -> Unit)? = null
 ) {
+    val movieViewModel: MovieContentsViewModel = remember { MovieContentsViewModel(filterName) }
     val lazyPagingItems = movieViewModel.list.collectAsLazyPagingItems()
     val swipeRefreshState = rememberSwipeRefreshState(false)
 
