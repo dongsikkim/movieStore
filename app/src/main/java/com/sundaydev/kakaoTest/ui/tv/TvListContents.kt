@@ -15,34 +15,45 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.sundaydev.kakaoTest.data.Tv
 import com.sundaydev.kakaoTest.theme.typography
-import kotlinx.coroutines.flow.Flow
+import com.sundaydev.kakaoTest.viewmodel.TvContentsViewModel
 
 @Composable
 fun TvListContents(
-    pager: Flow<PagingData<Tv>>,
+    filterName: String,
     onClick: ((Tv) -> Unit)? = null
 ) {
-    val lazyPagingItems = pager.collectAsLazyPagingItems()
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 128.dp),
-        contentPadding = PaddingValues(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        items(count = lazyPagingItems.itemCount) { item ->
-            lazyPagingItems[item]?.let {
-                TvGridItem(tv = it, onClick = onClick)
+    val movieViewModel: TvContentsViewModel = remember { TvContentsViewModel(filterName) }
+    val lazyPagingItems = movieViewModel.tvList.collectAsLazyPagingItems()
+    val swipeRefreshState = rememberSwipeRefreshState(false)
+
+    SwipeRefresh(
+        state = swipeRefreshState,
+        onRefresh = {
+            lazyPagingItems.refresh()
+        }) {
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(minSize = 128.dp),
+            contentPadding = PaddingValues(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            items(count = lazyPagingItems.itemCount) { item ->
+                lazyPagingItems[item]?.let {
+                    TvGridItem(tv = it, onClick = onClick)
+                }
             }
         }
     }
@@ -51,7 +62,8 @@ fun TvListContents(
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun TvGridItem(
-    tv: Tv, onClick: ((Tv) -> Unit)? = null
+    tv: Tv,
+    onClick: ((Tv) -> Unit)? = null
 ) {
     Card(
         modifier = Modifier

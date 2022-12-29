@@ -23,6 +23,7 @@ import com.sundaydev.kakaoTest.R
 import com.sundaydev.kakaoTest.ui.detail.MovieDetailScreen
 import com.sundaydev.kakaoTest.ui.movie.MovieScreen
 import com.sundaydev.kakaoTest.ui.splash.SplashContents
+import com.sundaydev.kakaoTest.ui.tv.TvScreen
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -68,7 +69,10 @@ fun MainContents() {
             ) { backStackEntry ->
                 MovieDetailScreen(movieId = backStackEntry.arguments?.getInt("movieId") ?: 0)
             }
-            composable(SCREEN_TV) { /*TvListContents(pager = )*/ }
+            composable(SCREEN_TV) {
+                TvScreen(navController = navController)
+            }
+            //TODO-동식 상세 페이지 내용 추가
             composable(SCREEN_PEOPLE) { /*PeopleListContents(pager = )*/ }
         }
     }
