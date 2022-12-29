@@ -58,9 +58,6 @@ fun MovieScreen(
                 filterName = MovieTabInfo.values()[page].name,
                 onClick = {
                     navController.navigate(getMovieDetailRoute(it.id))
-                },
-                refresh = {
-
                 }
             )
         }

@@ -1,7 +1,5 @@
 package com.sundaydev.kakaoTest.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -28,8 +26,4 @@ class MovieContentsViewModel(filterName: String) : BaseViewModel(), KoinComponen
             filterName = filterName
         )
     }.flow
-}
-
-class MovieContentsViewModelFactory(private val filterName: String) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T = MovieContentsViewModel(filterName) as T
 }

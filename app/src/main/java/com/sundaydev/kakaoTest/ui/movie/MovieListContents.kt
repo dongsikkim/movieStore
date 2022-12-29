@@ -35,16 +35,16 @@ import com.sundaydev.kakaoTest.viewmodel.MovieContentsViewModel
 @Composable
 fun MovieListContents(
     filterName: String,
-    onClick: ((Movie) -> Unit)? = null,
-    refresh: (() -> Unit)? = null
+    onClick: ((Movie) -> Unit)? = null
 ) {
     val movieViewModel: MovieContentsViewModel = remember { MovieContentsViewModel(filterName) }
     val lazyPagingItems = movieViewModel.list.collectAsLazyPagingItems()
     val swipeRefreshState = rememberSwipeRefreshState(false)
 
     SwipeRefresh(
-        state = swipeRefreshState, onRefresh = {
-            refresh?.invoke()
+        state = swipeRefreshState,
+        onRefresh = {
+            lazyPagingItems.refresh()
         }) {
         LazyVerticalGrid(
             columns = GridCells.Adaptive(minSize = 128.dp),
