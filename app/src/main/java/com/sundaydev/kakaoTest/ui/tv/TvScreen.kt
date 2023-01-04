@@ -2,7 +2,7 @@
 
 package com.sundaydev.kakaoTest.ui.tv
 
-import androidx.annotation.IdRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,7 +26,6 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import com.sundaydev.kakaoTest.R
-import com.sundaydev.kakaoTest.ui.activity.getTvDetailRoute
 import kotlinx.coroutines.launch
 
 @Composable
@@ -78,14 +77,14 @@ fun TvScreen(
             TvListContents(
                 filterName = TvTabInfo.values()[page].name,
                 onClick = {
-                    navController.navigate(getTvDetailRoute(it.id))
+                    //TODO-동식 TV 상세 화면 연결
                 }
             )
         }
     }
 }
 
-enum class TvTabInfo(@IdRes val resourceId: Int) {
+enum class TvTabInfo(@StringRes val resourceId: Int) {
     TV_POPULAR(R.string.popular),
     TV_TODAY(R.string.today_playing),
     TV_NOW_PLAYING(R.string.tv_now_playing),

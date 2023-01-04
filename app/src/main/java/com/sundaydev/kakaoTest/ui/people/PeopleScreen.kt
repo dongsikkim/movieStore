@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.sundaydev.kakaoTest.ui.activity.getTvDetailRoute
+import com.sundaydev.kakaoTest.ui.activity.getPeopleDetailRoute
 
 @Composable
 fun PeopleScreen(
@@ -28,7 +28,7 @@ fun PeopleScreen(
 
         PeopleListContents(
             onClick = {
-                navController.navigate(getTvDetailRoute(it.id))
+                navController.navigate(getPeopleDetailRoute(peopleId = it.id))
             }
         )
     }
