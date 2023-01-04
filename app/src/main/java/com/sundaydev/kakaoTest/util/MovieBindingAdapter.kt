@@ -51,13 +51,6 @@ fun setRefresh(layout: androidx.swiperefreshlayout.widget.SwipeRefreshLayout, is
 }
 
 
-@BindingAdapter("genres")
-fun setGenres(view: AppCompatTextView, genreArray: List<Genres>?) {
-    if (!genreArray.isNullOrEmpty()) {
-        view.text = genreArray.joinToString { genres -> genres.name }
-    }
-}
-
 @BindingAdapter("runtime")
 fun setRuntime(view: AppCompatTextView, minute: Int) {
     val builder = StringBuilder()
@@ -66,13 +59,6 @@ fun setRuntime(view: AppCompatTextView, minute: Int) {
     }
     builder.append(minute % 60).append("m")
     view.text = builder.toString()
-}
-
-@BindingAdapter("otherName")
-fun setOtherName(view: AppCompatTextView, nameList: List<String>?) {
-    if (!nameList.isNullOrEmpty()) {
-        view.text = nameList.joinToString()
-    }
 }
 
 @BindingAdapter("defaultItemDecorator")

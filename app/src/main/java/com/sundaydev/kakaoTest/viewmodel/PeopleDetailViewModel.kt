@@ -10,8 +10,8 @@ import org.koin.core.inject
 
 class PeopleDetailViewModel : BaseViewModel(), KoinComponent {
     private val repository: PeopleRepository by inject()
-    val detailData = MutableLiveData<PeopleDetail>()
 
+    val detailData = MutableLiveData<PeopleDetail>()
     fun loadPeopleDetail(peopleId: Int) {
         repository.getPeopleDetail(peopleId).subscribeByCommon { detailData.postValue(it) }.addTo(disposable)
     }

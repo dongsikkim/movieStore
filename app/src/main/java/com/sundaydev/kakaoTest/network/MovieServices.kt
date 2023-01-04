@@ -8,28 +8,28 @@ import retrofit2.http.Query
 
 interface MovieService {
     @GET("movie/popular")
-    fun getPopularMovie(@Query("page") page: Int = 1): Single<Movies>
+    suspend fun getPopularMovie(@Query("page") page: Int = 1): Movies
 
     @GET("movie/now_playing")
-    fun getNowPlayingMovie(@Query("page") page: Int = 1): Single<Movies>
+    suspend fun getNowPlayingMovie(@Query("page") page: Int = 1): Movies
 
     @GET("movie/upcoming")
-    fun getUpComingMovie(@Query("page") page: Int = 1): Single<Movies>
+    suspend fun getUpComingMovie(@Query("page") page: Int = 1): Movies
 
     @GET("movie/top_rated")
-    fun getTopRatedMovie(@Query("page") page: Int = 1): Single<Movies>
+    suspend fun getTopRatedMovie(@Query("page") page: Int = 1): Movies
 
     @GET("tv/popular")
-    fun getPopularTv(@Query("page") page: Int = 1): Single<Tvs>
+    suspend fun getPopularTv(@Query("page") page: Int = 1): Tvs
 
     @GET("tv/on_the_air")
-    fun getNowPlayingTv(@Query("page") page: Int = 1): Single<Tvs>
+    suspend fun getNowPlayingTv(@Query("page") page: Int = 1): Tvs
 
     @GET("tv/airing_today")
-    fun getTodayTv(@Query("page") page: Int = 1): Single<Tvs>
+    suspend fun getTodayTv(@Query("page") page: Int = 1): Tvs
 
     @GET("tv/top_rated")
-    fun getTopRatedTv(@Query("page") page: Int = 1): Single<Tvs>
+    suspend fun getTopRatedTv(@Query("page") page: Int = 1): Tvs
 
     @GET("movie/{movie_id}")
     fun getMovieDetail(@Path("movie_id") movie_id: Int): Single<MovieDetail>
@@ -39,6 +39,9 @@ interface MovieService {
 
     @GET("person/popular")
     fun getPeoples(@Query("page") page: Int = 1): Single<Peoples>
+
+    @GET("person/popular")
+    suspend fun getPeopleList(@Query("page") page: Int = 1): Peoples
 
     @GET("person/{person_id}")
     fun getPeopleDetail(@Path("person_id") person_id: Int): Single<PeopleDetail>

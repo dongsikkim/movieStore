@@ -3,15 +3,17 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 33
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.sundaydev.kakaoTest"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -25,12 +27,40 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
+    flavorDimensions "version"
+    productFlavors {
+        demo {
+            dimension "version"
+            applicationIdSuffix ".demo"
+            versionNameSuffix "-demo"
+            resValue "string", "app_name", 'kakaotest-demo'
+        }
+
+        full {
+            dimension "version"
+            applicationIdSuffix ".full"
+            versionNameSuffix "-full"
+            resValue "string", "app_name", 'kakaotest-full'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        dataBinding = true
+        // Enables Jetpack Compose for this module
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.3.0'
     }
 }
 
@@ -39,11 +69,15 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.firebase:firebase-crashlytics:18.2.9'
+    implementation 'com.google.firebase:firebase-analytics:20.1.2'
 
     //navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.2.2"
-    implementation "androidx.navigation:navigation-ui-ktx:2.2.2"
+    def nav_version = "2.5.2"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-compose:$nav_version"
 
     // Koin for Kotlin
     def koin_version = '2.1.5'
@@ -59,9 +93,9 @@ dependencies {
     implementation "org.koin:koin-androidx-ext:$koin_version"
 
     //stetho
-    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho:1.6.0'
 
-    def retrofit2_version = '2.3.0'
+    def retrofit2_version = '2.9.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
 
@@ -82,28 +116,47 @@ dependencies {
     def retrofit_rxjava_adapter_version = '1.0.0'
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofit_rxjava_adapter_version"
 
-    implementation "com.google.code.gson:gson:2.8.6"
+    implementation "com.google.code.gson:gson:2.9.1"
 
-    def paging_version = "2.1.2"
+    def paging_version = "3.1.1"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    implementation 'androidx.paging:paging-compose:1.0.0-alpha16'
 
-    def room_version = "2.2.5"
-    implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-rxjava2:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    // glide compose
+    implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
 
-    def glideVersion = '4.11.0'
-    kapt "com.github.bumptech.glide:compiler:$glideVersion"
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-
-    implementation "androidx.recyclerview:recyclerview:1.2.0-alpha03"
-    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
-
-    def lottieVersion = "3.4.0"
+    def lottieVersion = "5.2.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-    implementation group: 'com.google.android.material', name: 'material', version: '1.3.0-alpha01'
+    implementation group: 'com.google.android.material', name: 'material', version: '1.8.0-alpha01'
+
+    // Integration with activities
+    implementation 'androidx.activity:activity-compose:1.6.0'
+    // Compose Material Design
+    implementation 'androidx.compose.material:material:1.4.0-alpha01'
+    // Animations
+    implementation 'androidx.compose.animation:animation:1.2.1'
+    // Tooling support (Previews, etc.)
+    implementation 'androidx.compose.ui:ui-tooling:1.2.1'
+    // Integration with ViewModels
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
+    // UI Tests
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.2.1'
+    // compose runtime
+    implementation "androidx.compose.runtime:runtime:1.2.1"
+    implementation "androidx.compose.runtime:runtime-livedata:1.2.1"
+
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+
+    //swipe Refresh
+    implementation "com.google.accompanist:accompanist-swiperefresh:0.26.3-beta"
+
+    implementation "com.google.accompanist:accompanist-pager:0.27.0"
+
+    // If using indicators, also depend on
+    implementation "com.google.accompanist:accompanist-pager-indicators:0.27.0"
+
 }

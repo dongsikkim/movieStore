@@ -1,6 +1,11 @@
 package com.sundaydev.kakaoTest.data
 
 import android.os.Parcelable
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.RelativeSizeSpan
+import com.sundaydev.kakaoTest.network.URL_ORIGIN_IMAGE
+import com.sundaydev.kakaoTest.network.URL_SUMMARY_IMAGE
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -23,6 +28,22 @@ data class Tv(
     val vote_count: Int = 0
 ) {
     fun displayVote() = (vote_average * 10).toInt()
+
+    fun getDisplayRatePercentage() = when (displayVote()) {
+        in 1..100 -> {
+            val spannableString = SpannableStringBuilder("${displayVote()}%")
+            spannableString.apply { setSpan(RelativeSizeSpan(1.2f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
+        }
+        else -> "N/R"
+    }
+
+    fun displayPosterUrl(isOriginal: Boolean = true): String {
+        return if (isOriginal) {
+            "${URL_ORIGIN_IMAGE}${poster_path}"
+        } else {
+            "${URL_SUMMARY_IMAGE}${poster_path}"
+        }
+    }
 }
 
 data class Movie(
@@ -45,6 +66,22 @@ data class Movie(
         title = title, video = video, poster_path = poster_path, popularity = popularity, original_language = original_language,
         backdrop_path = backdrop_path, vote_average = vote_average, overview = overview, vote_count = vote_count
     )
+
+    fun getDisplayRatePercentage() = when (displayVote()) {
+        in 1..100 -> {
+            val spannableString = SpannableStringBuilder("${displayVote()}%")
+            spannableString.apply { setSpan(RelativeSizeSpan(1.2f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
+        }
+        else -> "N/R"
+    }
+
+    fun displayPosterUrl(isOriginal: Boolean = true): String {
+        return if (isOriginal) {
+            "${URL_ORIGIN_IMAGE}${poster_path}"
+        } else {
+            "${URL_SUMMARY_IMAGE}${poster_path}"
+        }
+    }
 }
 
 data class People(
@@ -52,6 +89,14 @@ data class People(
     /*val known_for: List<String>, */val name: String, val popularity: Float
 ) {
     fun toPeopleDetail() = PeopleDetail(id = id, adult = adult, name = name, popularity = popularity, profile_path = profile_path)
+
+    fun displayProfileUrl(isOriginal: Boolean = true): String {
+        return if (isOriginal) {
+            "${URL_ORIGIN_IMAGE}${profile_path}"
+        } else {
+            "${URL_SUMMARY_IMAGE}${profile_path}"
+        }
+    }
 }
 
 @Parcelize
@@ -61,7 +106,23 @@ data class PeopleDetail(
     val gender: Int = 0, val biography: String = "", val popularity: Float = 0f, val place_of_birth: String? = null,
     val profile_path: String? = null, val adult: Boolean = false, val imdb_id: String = "",
     val homepage: String? = null
-) : Parcelable
+) : Parcelable {
+    fun getProfileUrl(isOriginal: Boolean = true): String {
+        return if (isOriginal) {
+            "$URL_ORIGIN_IMAGE${profile_path}"
+        } else {
+            "$URL_SUMMARY_IMAGE${profile_path}"
+        }
+    }
+
+    fun getAlsoKnownAs(): String {
+        return if (also_known_as.isNotEmpty()) {
+            also_known_as.joinToString()
+        } else {
+            ""
+        }
+    }
+}
 
 data class PeopleCredits(
     val cast: List<PeopleCast>, val crew: List<PeopleCrew>, val id: Int
@@ -110,7 +171,43 @@ data class MovieDetail(
     val status: String = "", val tagline: String? = null, val title: String = "", val video: Boolean = false,
     val vote_average: Float = 0F, val vote_count: Int = 0
 ) : Parcelable {
+
+    fun getDisplayPosterUrl(isOriginal: Boolean = true): String {
+        return if (isOriginal) {
+            "${URL_ORIGIN_IMAGE}${poster_path}"
+        } else {
+            "${URL_SUMMARY_IMAGE}${poster_path}"
+        }
+    }
+
+    fun getDisplayBackdropUrl(isOriginal: Boolean = true): String {
+        return if (isOriginal) {
+            "${URL_ORIGIN_IMAGE}${backdrop_path}"
+        } else {
+            "${URL_SUMMARY_IMAGE}${backdrop_path}"
+        }
+    }
+
     fun displayVote() = (vote_average * 10).toInt()
+
+    fun getDisplayGenres(): String {
+        return if (genres.isNotEmpty()) {
+            genres.joinToString { genres -> genres.name }
+        } else {
+            ""
+        }
+    }
+
+    fun getDisplayRuntime(): String {
+        val builder = StringBuilder()
+        val runtime = runtime ?: 0
+
+        if (runtime / 60 > 0) {
+            builder.append(runtime / 60).append("h ")
+        }
+        builder.append(runtime % 60).append("m")
+        return builder.toString()
+    }
 }
 
 data class Credit(val id: Int, val cast: List<Cast>, val crew: List<Crew>)
