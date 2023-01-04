@@ -6,14 +6,12 @@ import com.sundaydev.kakaoTest.data.Tvs
 import com.sundaydev.kakaoTest.network.MovieClient
 import com.sundaydev.kakaoTest.ui.movie.MovieTabInfo
 import com.sundaydev.kakaoTest.ui.tv.TvTabInfo
-import com.sundaydev.kakaoTest.util.workOnSchedulerIo
-import io.reactivex.Single
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 interface ContentsRepository {
-    fun getMovieDetail(id: Int): Single<MovieDetail>
-    fun getTvDetail(id: Int): Single<MovieDetail>
+    suspend fun getMovieDetail(id: Int): MovieDetail
+    suspend fun getTvDetail(id: Int): MovieDetail
     suspend fun loadTvs(filterName: String, page: Int): Tvs
     suspend fun loadMovies(filterName: String, page: Int): Movies
 }
@@ -23,9 +21,9 @@ const val CONTENTS_PAGE_SIZE = 20
 class ContentsRepositoryImpl : ContentsRepository, KoinComponent {
     private val apiClient: MovieClient by inject()
 
-    override fun getMovieDetail(id: Int): Single<MovieDetail> = apiClient.movieApi.getMovieDetail(id).workOnSchedulerIo()
+    override suspend fun getMovieDetail(id: Int): MovieDetail = apiClient.movieApi.getMovieDetail(id)
 
-    override fun getTvDetail(id: Int): Single<MovieDetail> = apiClient.movieApi.getTvDetail(id).workOnSchedulerIo()
+    override suspend fun getTvDetail(id: Int): MovieDetail = apiClient.movieApi.getTvDetail(id)
 
     override suspend fun loadMovies(filterName: String, page: Int): Movies =
         when (filterName) {

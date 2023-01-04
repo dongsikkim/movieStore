@@ -1,10 +1,10 @@
 package com.sundaydev.kakaoTest.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.sundaydev.kakaoTest.data.PeopleDetail
 import com.sundaydev.kakaoTest.repository.PeopleRepository
-import com.sundaydev.kakaoTest.util.subscribeByCommon
-import io.reactivex.rxkotlin.addTo
+import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -13,6 +13,8 @@ class PeopleDetailViewModel : BaseViewModel(), KoinComponent {
 
     val detailData = MutableLiveData<PeopleDetail>()
     fun loadPeopleDetail(peopleId: Int) {
-        repository.getPeopleDetail(peopleId).subscribeByCommon { detailData.postValue(it) }.addTo(disposable)
+        viewModelScope.launch {
+            detailData.postValue(repository.getPeopleDetail(peopleId))
+        }
     }
 }
