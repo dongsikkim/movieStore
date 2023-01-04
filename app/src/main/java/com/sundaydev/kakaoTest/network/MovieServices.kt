@@ -1,7 +1,6 @@
 package com.sundaydev.kakaoTest.network
 
 import com.sundaydev.kakaoTest.data.*
-import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -32,20 +31,20 @@ interface MovieService {
     suspend fun getTopRatedTv(@Query("page") page: Int = 1): Tvs
 
     @GET("movie/{movie_id}")
-    fun getMovieDetail(@Path("movie_id") movie_id: Int): Single<MovieDetail>
+    suspend fun getMovieDetail(@Path("movie_id") movie_id: Int): MovieDetail
 
     @GET("tv/{tv_id}")
-    fun getTvDetail(@Path("tv_id") tv_id: Int): Single<MovieDetail>
+    suspend fun getTvDetail(@Path("tv_id") tv_id: Int): MovieDetail
 
     @GET("person/popular")
-    fun getPeoples(@Query("page") page: Int = 1): Single<Peoples>
+    suspend fun getPeoples(@Query("page") page: Int = 1): Peoples
 
     @GET("person/popular")
     suspend fun getPeopleList(@Query("page") page: Int = 1): Peoples
 
     @GET("person/{person_id}")
-    fun getPeopleDetail(@Path("person_id") person_id: Int): Single<PeopleDetail>
+    suspend fun getPeopleDetail(@Path("person_id") person_id: Int): PeopleDetail
 
     @GET("person/{person_id}/combined_credits")
-    fun getCredits(@Path("person_id") person_id: Int): Single<PeopleCredits>
+    suspend fun getCredits(@Path("person_id") person_id: Int): PeopleCredits
 }

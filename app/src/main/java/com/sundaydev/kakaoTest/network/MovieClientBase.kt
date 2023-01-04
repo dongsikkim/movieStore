@@ -2,7 +2,6 @@ package com.sundaydev.kakaoTest.network
 
 import android.net.TrafficStats
 import com.google.gson.Gson
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -36,7 +35,7 @@ open class MovieClientBase : KoinComponent {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gSon))
             .client(okHttp3Client)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).baseUrl(host).build()
+            .baseUrl(host).build()
     }
 
     open class TrafficStatInterceptor internal constructor(private var trafficTag: Int) :
